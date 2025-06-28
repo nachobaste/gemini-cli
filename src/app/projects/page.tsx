@@ -2,39 +2,44 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-
-// Mock data for projects
-const mockProjects = [
-  {
-    id: 1,
-    name: 'Torre Reforma Norte',
-    location: 'Ciudad de Guatemala',
-    type: 'Residencial',
-    status: 'Activo',
-    score: 8.7,
-  },
-  {
-    id: 2,
-    name: 'Centro Comercial Pradera',
-    location: 'Escuintla',
-    type: 'Comercial',
-    status: 'En Desarrollo',
-    score: 7.9,
-  },
-  // Add more mock projects as needed
-];
+import { DatabaseService } from '../../lib/supabase';
+import { Project } from '@/types';
 
 const ProjectsPage = () => {
-  const [projects, setProjects] = useState<any[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate API call
-    setTimeout(() => {
-      setProjects(mockProjects);
-      setLoading(false);
-    }, 1000);
+    const fetchProjects = async () => {
+      try {
+        const data = await DatabaseService.getProjects();
+        setProjects(data as Project[]);
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
   }, []);
+
+  const getStatusColor = (status: string) => {
+    switch (status?.toLowerCase()) {
+      case 'active':
+        return 'bg-green-100 text-green-800';
+      case 'planning':
+        return 'bg-blue-100 text-blue-800';
+      case 'under_review':
+        return 'bg-yellow-100 text-yellow-800';
+      case 'suspended':
+        return 'bg-red-100 text-red-800';
+      case 'completed':
+        return 'bg-purple-100 text-purple-800';
+      default:
+        return 'bg-gray-100 text-gray-800';
+    }
+  };
 
   return (
     <div className="container-urbop py-12">
@@ -59,20 +64,20 @@ const ProjectsPage = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map(project => (
+          {projects.map((project) => (
             <Link key={project.id} href={`/projects/${project.id}`}>
               <div className="card cursor-pointer">
                 <div className="card-body">
                   <div className="flex items-center justify-between mb-4">
                     <h2 className="text-xl font-bold">{project.name}</h2>
-                    <div className={`px-3 py-1 rounded-full text-sm font-medium ${project.status === 'Activo' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>
+                    <div className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(project.status)}`}>
                       {project.status}
                     </div>
                   </div>
                   <p className="text-gray-600">{project.location}</p>
                   <div className="flex items-center justify-between mt-6">
-                    <span className="text-gray-500">{project.type}</span>
-                    <span className="text-lg font-bold text-lime-600">{project.score}</span>
+                    <span className="text-gray-500">{project.asset_class}</span>
+                    <span className="text-lg font-bold text-lime-600">{project.mcda_score?.toFixed(1) || 'N/A'}</span>
                   </div>
                 </div>
               </div>

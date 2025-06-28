@@ -1,0 +1,28 @@
+{
+  "../node_modules/@supabase/auth-js/dist/module/lib/helpers.js -> @supabase/node-fetch": {
+    "id": 485,
+    "files": []
+  },
+  "../node_modules/@supabase/functions-js/dist/module/helper.js -> @supabase/node-fetch": {
+    "id": 485,
+    "files": []
+  },
+  "../node_modules/@supabase/realtime-js/dist/module/RealtimeClient.js -> @supabase/node-fetch": {
+    "id": 485,
+    "files": []
+  },
+  "../node_modules/@supabase/storage-js/dist/module/lib/helpers.js -> @supabase/node-fetch": {
+    "id": 485,
+    "files": []
+  },
+  "app/map/page.tsx -> ./MapComponent": {
+    "id": 7191,
+    "files": [
+      "static/css/3f4986a4531cb045.css",
+      "static/chunks/d0deef33.bd75b11a952a2d3d.js",
+      "static/chunks/29-20d3480d0a2da1ad.js",
+      "static/chunks/933.80f853b459c5643d.js",
+      "static/chunks/191.f5a0dfba9f865fda.js"
+    ]
+  }
+}

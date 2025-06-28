@@ -1,25 +1,23 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { supabase } from '../../lib/supabase'; // Adjust path as needed
+import { DatabaseService } from '../../lib/supabase';
+import { MCDAParameter } from '@/types';
 
 const ConfigPage = () => {
-  const [parameters, setParameters] = useState<any[]>([]);
+  const [parameters, setParameters] = useState<MCDAParameter[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchParameters = async () => {
-      const { data, error } = await supabase
-        .from('mcda_parameters')
-        .select('*')
-        .order('category');
-
-      if (error) {
-        console.error('Error fetching parameters:', error);
-      } else {
+      try {
+        const data = await DatabaseService.getMCDAParameters();
         setParameters(data);
+      } catch (error) {
+        console.error('Error fetching parameters:', error);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     fetchParameters();
@@ -34,14 +32,14 @@ const ConfigPage = () => {
       ) : (
         <div className="bg-white p-8 rounded-xl shadow-lg">
           <div className="space-y-8">
-            {parameters.map(param => (
+            {parameters.map((param) => (
               <div key={param.id} className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
                 <div>
                   <label className="font-semibold">{param.name}</label>
                   <p className="text-sm text-gray-500">{param.category}</p>
                 </div>
                 <div className="md:col-span-2">
-                  <input 
+                  <input
                     type="range"
                     min={param.min_value}
                     max={param.max_value}

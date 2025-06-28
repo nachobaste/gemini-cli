@@ -9,7 +9,11 @@ interface ComparisonModalProps {
   onRemoveProject: (projectId: number) => void;
 }
 
-const ComparisonModal: React.FC<ComparisonModalProps> = ({ projects, onClose, onRemoveProject }) => {
+const ComparisonModal: React.FC<ComparisonModalProps> = ({
+  projects,
+  onClose,
+  onRemoveProject,
+}) => {
   const [activeTab, setActiveTab] = useState('overview');
 
   if (projects.length === 0) return null;
@@ -38,18 +42,23 @@ const ComparisonModal: React.FC<ComparisonModalProps> = ({ projects, onClose, on
               className="text-gray-400 hover:text-gray-600 transition-colors"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
-          
+
           {/* Tabs */}
           <div className="flex space-x-1 mt-4">
             {[
               { key: 'overview', label: 'Resumen General' },
               { key: 'financial', label: 'Datos Financieros' },
               { key: 'technical', label: 'Especificaciones' },
-              { key: 'location', label: 'Ubicación' }
+              { key: 'location', label: 'Ubicación' },
             ].map(({ key, label }) => (
               <button
                 key={key}
@@ -77,21 +86,28 @@ const ComparisonModal: React.FC<ComparisonModalProps> = ({ projects, onClose, on
                   className="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
                   </svg>
                 </button>
-                
+
                 <div className="flex items-center mb-3">
-                  <div 
+                  <div
                     className="w-4 h-4 rounded-full mr-3"
                     style={{ backgroundColor: project.color }}
                   ></div>
                   <h3 className="font-bold text-gray-900 text-lg">{project.name}</h3>
                 </div>
-                
+
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-gray-600">{project.assetClass}</span>
-                  <span className={`px-3 py-1 rounded-full text-sm font-medium ${getScoreColor(project.score)}`}>
+                  <span
+                    className={`px-3 py-1 rounded-full text-sm font-medium ${getScoreColor(project.score)}`}
+                  >
                     {project.score}
                   </span>
                 </div>
@@ -104,7 +120,9 @@ const ComparisonModal: React.FC<ComparisonModalProps> = ({ projects, onClose, on
             <div className="space-y-6">
               {/* Scores Comparison */}
               <div className="bg-white border border-gray-200 rounded-lg p-6">
-                <h4 className="text-lg font-semibold text-gray-900 mb-4">Comparación de Scores MCDA</h4>
+                <h4 className="text-lg font-semibold text-gray-900 mb-4">
+                  Comparación de Scores MCDA
+                </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {projects.map((project) => (
                     <div key={project.id} className="text-center">
@@ -113,11 +131,11 @@ const ComparisonModal: React.FC<ComparisonModalProps> = ({ projects, onClose, on
                       </div>
                       <div className="text-sm text-gray-600">{project.name}</div>
                       <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-                        <div 
+                        <div
                           className="h-2 rounded-full"
-                          style={{ 
+                          style={{
                             backgroundColor: project.color,
-                            width: `${(project.score / 10) * 100}%`
+                            width: `${(project.score / 10) * 100}%`,
                           }}
                         ></div>
                       </div>
@@ -133,11 +151,15 @@ const ComparisonModal: React.FC<ComparisonModalProps> = ({ projects, onClose, on
                   {projects.map((project) => (
                     <div key={project.id} className="text-center p-4 bg-gray-50 rounded-lg">
                       <div className="font-medium text-gray-900 mb-2">{project.name}</div>
-                      <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
-                        project.status === 'Activo' ? 'bg-green-100 text-green-800' :
-                        project.status === 'En Desarrollo' ? 'bg-blue-100 text-blue-800' :
-                        'bg-yellow-100 text-yellow-800'
-                      }`}>
+                      <span
+                        className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${
+                          project.status === 'Activo'
+                            ? 'bg-green-100 text-green-800'
+                            : project.status === 'En Desarrollo'
+                              ? 'bg-blue-100 text-blue-800'
+                              : 'bg-yellow-100 text-yellow-800'
+                        }`}
+                      >
                         {project.status}
                       </span>
                     </div>
@@ -157,9 +179,15 @@ const ComparisonModal: React.FC<ComparisonModalProps> = ({ projects, onClose, on
                     <thead>
                       <tr className="border-b border-gray-200">
                         <th className="text-left py-3 px-4 font-medium text-gray-900">Proyecto</th>
-                        <th className="text-left py-3 px-4 font-medium text-gray-900">Presupuesto</th>
-                        <th className="text-left py-3 px-4 font-medium text-gray-900">Costo por m²</th>
-                        <th className="text-left py-3 px-4 font-medium text-gray-900">Costo por Unidad</th>
+                        <th className="text-left py-3 px-4 font-medium text-gray-900">
+                          Presupuesto
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium text-gray-900">
+                          Costo por m²
+                        </th>
+                        <th className="text-left py-3 px-4 font-medium text-gray-900">
+                          Costo por Unidad
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -167,16 +195,22 @@ const ComparisonModal: React.FC<ComparisonModalProps> = ({ projects, onClose, on
                         <tr key={project.id} className="border-b border-gray-100">
                           <td className="py-3 px-4">
                             <div className="flex items-center">
-                              <div 
+                              <div
                                 className="w-3 h-3 rounded-full mr-2"
                                 style={{ backgroundColor: project.color }}
                               ></div>
                               {project.name}
                             </div>
                           </td>
-                          <td className="py-3 px-4 font-medium">{formatCurrency(project.budget)}</td>
-                          <td className="py-3 px-4">${Math.round(project.budget / project.area).toLocaleString()}</td>
-                          <td className="py-3 px-4">${Math.round(project.budget / project.units).toLocaleString()}</td>
+                          <td className="py-3 px-4 font-medium">
+                            {formatCurrency(project.budget)}
+                          </td>
+                          <td className="py-3 px-4">
+                            ${Math.round(project.budget / project.area).toLocaleString()}
+                          </td>
+                          <td className="py-3 px-4">
+                            ${Math.round(project.budget / project.units).toLocaleString()}
+                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -209,16 +243,22 @@ const ComparisonModal: React.FC<ComparisonModalProps> = ({ projects, onClose, on
             <div className="space-y-6">
               {/* Technical Specifications */}
               <div className="bg-white border border-gray-200 rounded-lg p-6">
-                <h4 className="text-lg font-semibold text-gray-900 mb-4">Especificaciones Técnicas</h4>
+                <h4 className="text-lg font-semibold text-gray-900 mb-4">
+                  Especificaciones Técnicas
+                </h4>
                 <div className="overflow-x-auto">
                   <table className="w-full">
                     <thead>
                       <tr className="border-b border-gray-200">
                         <th className="text-left py-3 px-4 font-medium text-gray-900">Proyecto</th>
-                        <th className="text-left py-3 px-4 font-medium text-gray-900">Área Total</th>
+                        <th className="text-left py-3 px-4 font-medium text-gray-900">
+                          Área Total
+                        </th>
                         <th className="text-left py-3 px-4 font-medium text-gray-900">Unidades</th>
                         <th className="text-left py-3 px-4 font-medium text-gray-900">Pisos</th>
-                        <th className="text-left py-3 px-4 font-medium text-gray-900">Desarrollador</th>
+                        <th className="text-left py-3 px-4 font-medium text-gray-900">
+                          Desarrollador
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
@@ -226,7 +266,7 @@ const ComparisonModal: React.FC<ComparisonModalProps> = ({ projects, onClose, on
                         <tr key={project.id} className="border-b border-gray-100">
                           <td className="py-3 px-4">
                             <div className="flex items-center">
-                              <div 
+                              <div
                                 className="w-3 h-3 rounded-full mr-2"
                                 style={{ backgroundColor: project.color }}
                               ></div>
@@ -246,12 +286,17 @@ const ComparisonModal: React.FC<ComparisonModalProps> = ({ projects, onClose, on
 
               {/* Completion Timeline */}
               <div className="bg-white border border-gray-200 rounded-lg p-6">
-                <h4 className="text-lg font-semibold text-gray-900 mb-4">Cronograma de Finalización</h4>
+                <h4 className="text-lg font-semibold text-gray-900 mb-4">
+                  Cronograma de Finalización
+                </h4>
                 <div className="space-y-4">
                   {projects.map((project) => (
-                    <div key={project.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                    <div
+                      key={project.id}
+                      className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+                    >
                       <div className="flex items-center">
-                        <div 
+                        <div
                           className="w-4 h-4 rounded-full mr-3"
                           style={{ backgroundColor: project.color }}
                         ></div>
@@ -262,11 +307,15 @@ const ComparisonModal: React.FC<ComparisonModalProps> = ({ projects, onClose, on
                           {new Date(project.completionDate).toLocaleDateString('es-ES', {
                             year: 'numeric',
                             month: 'long',
-                            day: 'numeric'
+                            day: 'numeric',
                           })}
                         </div>
                         <div className="text-sm text-gray-600">
-                          {Math.ceil((new Date(project.completionDate).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))} días restantes
+                          {Math.ceil(
+                            (new Date(project.completionDate).getTime() - new Date().getTime()) /
+                              (1000 * 60 * 60 * 24),
+                          )}{' '}
+                          días restantes
                         </div>
                       </div>
                     </div>
@@ -285,13 +334,13 @@ const ComparisonModal: React.FC<ComparisonModalProps> = ({ projects, onClose, on
                   {projects.map((project) => (
                     <div key={project.id} className="border border-gray-200 rounded-lg p-4">
                       <div className="flex items-center mb-3">
-                        <div 
+                        <div
                           className="w-4 h-4 rounded-full mr-2"
                           style={{ backgroundColor: project.color }}
                         ></div>
                         <h5 className="font-medium text-gray-900">{project.name}</h5>
                       </div>
-                      
+
                       <div className="space-y-2 text-sm">
                         <div>
                           <span className="text-gray-600">Dirección:</span>
@@ -308,7 +357,7 @@ const ComparisonModal: React.FC<ComparisonModalProps> = ({ projects, onClose, on
                           <div className="font-medium">{project.location}</div>
                         </div>
                       </div>
-                      
+
                       <button className="mt-3 w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 px-3 rounded text-sm transition-colors">
                         Ver en Mapa
                       </button>
@@ -329,7 +378,10 @@ const ComparisonModal: React.FC<ComparisonModalProps> = ({ projects, onClose, on
                       <tr className="border-b border-gray-200">
                         <th className="text-left py-2 px-3 font-medium text-gray-900">Proyecto</th>
                         {projects.map((project) => (
-                          <th key={project.id} className="text-center py-2 px-3 font-medium text-gray-900">
+                          <th
+                            key={project.id}
+                            className="text-center py-2 px-3 font-medium text-gray-900"
+                          >
                             {project.name.split(' ')[0]}
                           </th>
                         ))}
@@ -340,7 +392,7 @@ const ComparisonModal: React.FC<ComparisonModalProps> = ({ projects, onClose, on
                         <tr key={project1.id} className="border-b border-gray-100">
                           <td className="py-2 px-3 font-medium">
                             <div className="flex items-center">
-                              <div 
+                              <div
                                 className="w-3 h-3 rounded-full mr-2"
                                 style={{ backgroundColor: project1.color }}
                               ></div>
@@ -349,19 +401,31 @@ const ComparisonModal: React.FC<ComparisonModalProps> = ({ projects, onClose, on
                           </td>
                           {projects.map((project2) => {
                             if (project1.id === project2.id) {
-                              return <td key={project2.id} className="text-center py-2 px-3 text-gray-400">-</td>;
+                              return (
+                                <td
+                                  key={project2.id}
+                                  className="text-center py-2 px-3 text-gray-400"
+                                >
+                                  -
+                                </td>
+                              );
                             }
-                            
+
                             // Calculate approximate distance using Haversine formula
                             const R = 6371; // Earth's radius in km
-                            const dLat = (project2.coordinates[0] - project1.coordinates[0]) * Math.PI / 180;
-                            const dLon = (project2.coordinates[1] - project1.coordinates[1]) * Math.PI / 180;
-                            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-                                    Math.cos(project1.coordinates[0] * Math.PI / 180) * Math.cos(project2.coordinates[0] * Math.PI / 180) *
-                                    Math.sin(dLon/2) * Math.sin(dLon/2);
-                            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+                            const dLat =
+                              ((project2.coordinates[0] - project1.coordinates[0]) * Math.PI) / 180;
+                            const dLon =
+                              ((project2.coordinates[1] - project1.coordinates[1]) * Math.PI) / 180;
+                            const a =
+                              Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                              Math.cos((project1.coordinates[0] * Math.PI) / 180) *
+                                Math.cos((project2.coordinates[0] * Math.PI) / 180) *
+                                Math.sin(dLon / 2) *
+                                Math.sin(dLon / 2);
+                            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
                             const distance = R * c;
-                            
+
                             return (
                               <td key={project2.id} className="text-center py-2 px-3">
                                 {distance.toFixed(1)} km

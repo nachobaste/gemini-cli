@@ -1,49 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
-import MapComponent from './MapComponent';
-import ComparisonModal from './ComparisonModal';
+import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 
-// Mock data for projects
-const mockProjects = [
-  {
-    id: 1,
-    name: 'Torre Reforma Norte',
-    address: 'Ciudad de Guatemala',
-    assetClass: 'Residencial',
-    score: 8.7,
-    color: '#34D399',
-    coordinates: [14.6349, -90.5069],
-    budget: 25000000,
-    area: 12500,
-    units: 120,
-    floors: 25,
-    developer: 'Desarrollos Inmobiliarios S.A.',
-    completionDate: '2025-12-31',
-    status: 'Activo',
-    location: 'Zona 10'
-  },
-  {
-    id: 2,
-    name: 'Centro Comercial Pradera',
-    address: 'Escuintla',
-    assetClass: 'Comercial',
-    score: 7.9,
-    color: '#60A5FA',
-    coordinates: [14.3050, -90.7856],
-    budget: 18000000,
-    area: 8500,
-    units: 45,
-    floors: 3,
-    developer: 'Grupo Pradera',
-    completionDate: '2024-08-15',
-    status: 'En Desarrollo',
-    location: 'Escuintla Centro'
-  },
-  // Add more mock projects as needed
-];
+const MapComponent = dynamic(() => import('./MapComponent'), {
+  ssr: false,
+});
+import ComparisonModal from './ComparisonModal';
+import { DatabaseService } from '../../lib/supabase';
+import { Project } from '@/types';
 
 const MapPage = () => {
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
   const [filters, setFilters] = useState({
     viewMode: 'map',
     layers: { projects: true, clusters: true, heatmap: false, municipalities: false, roads: false, population: false },
@@ -52,6 +21,21 @@ const MapPage = () => {
   const [compareMode, setCompareMode] = useState(false);
   const [selectedForComparison, setSelectedForComparison] = useState<any[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const data = await DatabaseService.getProjects();
+        setProjects(data as Project[]);
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
 
   const handleProjectSelect = (project: any) => {
     setSelectedProject(project);
@@ -129,14 +113,34 @@ const MapPage = () => {
 
       {/* Map Area */}
       <div className="flex-1 h-full">
-        <MapComponent 
-          projects={mockProjects}
-          filters={filters}
-          onProjectSelect={handleProjectSelect}
-          compareMode={compareMode}
-          onAddToComparison={handleAddToComparison}
-          selectedForComparison={selectedForComparison}
-        />
+        {loading ? (
+          <div className="flex items-center justify-center h-full">
+            <svg className="animate-spin h-12 w-12 text-lime-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          </div>
+        ) : (
+          <MapComponent 
+            projects={projects.map(p => ({
+              ...p,
+              coordinates: [p.coordinates?.y, p.coordinates?.x], // Convert to [lat, lng]
+              score: p.mcda_score,
+              assetClass: p.asset_class,
+              address: p.location,
+              color: '#84cc16', // Default color, can be dynamic
+              units: p.units_count,
+              floors: p.floors_count,
+              area: p.area_total,
+              budget: p.budget,
+            }))}
+            filters={filters}
+            onProjectSelect={handleProjectSelect}
+            compareMode={compareMode}
+            onAddToComparison={handleAddToComparison}
+            selectedForComparison={selectedForComparison}
+          />
+        )}
       </div>
 
       {/* Comparison Modal */}

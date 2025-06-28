@@ -25,13 +25,13 @@ interface MapComponentProps {
   selectedForComparison?: any[];
 }
 
-const MapComponent: React.FC<MapComponentProps> = ({ 
-  projects, 
-  filters, 
+const MapComponent: React.FC<MapComponentProps> = ({
+  projects,
+  filters,
   onProjectSelect,
   compareMode = false,
   onAddToComparison,
-  selectedForComparison = []
+  selectedForComparison = [],
 }) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
@@ -42,16 +42,16 @@ const MapComponent: React.FC<MapComponentProps> = ({
 
   // Custom asset class icons
   const createCustomIcon = (project: any) => {
-    const isSelected = selectedForComparison.find(p => p.id === project.id);
+    const isSelected = selectedForComparison.find((p) => p.id === project.id);
     const iconSize = isSelected ? 50 : 40;
     const fontSize = isSelected ? 14 : 12;
-    
+
     const assetClassIcons: { [key: string]: string } = {
-      'Residencial': '🏠',
-      'Comercial': '🏢',
-      'Oficinas': '🏬',
-      'Mixto': '🏘️',
-      'Industrial': '🏭'
+      Residencial: '🏠',
+      Comercial: '🏢',
+      Oficinas: '🏬',
+      Mixto: '🏘️',
+      Industrial: '🏭',
     };
 
     return L.divIcon({
@@ -102,7 +102,9 @@ const MapComponent: React.FC<MapComponentProps> = ({
             <div style="font-weight: bold; margin-bottom: 2px;">${project.name}</div>
             <div style="font-size: 10px; color: #ccc;">${project.assetClass} • Score: ${project.score}</div>
           </div>
-          ${isSelected ? `
+          ${
+            isSelected
+              ? `
             <div style="
               position: absolute;
               top: -5px;
@@ -118,11 +120,13 @@ const MapComponent: React.FC<MapComponentProps> = ({
               font-size: 12px;
               z-index: 1002;
             ">✓</div>
-          ` : ''}
+          `
+              : ''
+          }
         </div>
       `,
       iconSize: [iconSize, iconSize],
-      iconAnchor: [iconSize / 2, iconSize / 2]
+      iconAnchor: [iconSize / 2, iconSize / 2],
     });
   };
 
@@ -136,34 +140,44 @@ const MapComponent: React.FC<MapComponentProps> = ({
       zoom: 11,
       zoomControl: false,
       attributionControl: false,
-      preferCanvas: true // Better performance for many markers
+      preferCanvas: true, // Better performance for many markers
     });
 
     // Add custom zoom control
-    L.control.zoom({
-      position: 'topright'
-    }).addTo(map);
+    L.control
+      .zoom({
+        position: 'topright',
+      })
+      .addTo(map);
 
     // Add scale control
-    L.control.scale({
-      position: 'bottomleft'
-    }).addTo(map);
+    L.control
+      .scale({
+        position: 'bottomleft',
+      })
+      .addTo(map);
 
     // Add different tile layers based on view mode
     const tileLayers: { [key: string]: L.TileLayer } = {
       map: L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
         attribution: '© OpenStreetMap contributors © CARTO',
         subdomains: 'abcd',
-        maxZoom: 19
+        maxZoom: 19,
       }),
-      satellite: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: '© Esri',
-        maxZoom: 19
-      }),
-      hybrid: L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: '© Esri',
-        maxZoom: 19
-      })
+      satellite: L.tileLayer(
+        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        {
+          attribution: '© Esri',
+          maxZoom: 19,
+        },
+      ),
+      hybrid: L.tileLayer(
+        'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+        {
+          attribution: '© Esri',
+          maxZoom: 19,
+        },
+      ),
     };
 
     // Add default tile layer
@@ -181,11 +195,12 @@ const MapComponent: React.FC<MapComponentProps> = ({
       iconCreateFunction: (cluster: any) => {
         const count = cluster.getChildCount();
         const markers = cluster.getAllChildMarkers();
-        
+
         // Calculate average score for cluster
-        const avgScore = markers.reduce((sum: number, marker: any) => {
-          return sum + (marker.options.project?.score || 0);
-        }, 0) / markers.length;
+        const avgScore =
+          markers.reduce((sum: number, marker: any) => {
+            return sum + (marker.options.project?.score || 0);
+          }, 0) / markers.length;
 
         // Determine cluster color based on average score
         let clusterColor = '#6b7280';
@@ -215,13 +230,13 @@ const MapComponent: React.FC<MapComponentProps> = ({
             </div>
           `,
           className: 'marker-cluster-custom',
-          iconSize: [40, 40]
+          iconSize: [40, 40],
         });
       },
       spiderfyOnMaxZoom: true,
       showCoverageOnHover: false,
       zoomToBoundsOnClick: true,
-      maxClusterRadius: 50
+      maxClusterRadius: 50,
     });
 
     map.addLayer(markerClusterGroupRef.current);
@@ -265,7 +280,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
         attribution: '',
         subdomains: 'abcd',
         maxZoom: 19,
-        pane: 'overlayPane'
+        pane: 'overlayPane',
       }).addTo(map);
     }
   }, [filters.viewMode, mapLoaded]);
@@ -276,7 +291,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
 
     // Clear existing markers
     markerClusterGroupRef.current.clearLayers();
-    markersRef.current.forEach(marker => {
+    markersRef.current.forEach((marker) => {
       if (mapInstanceRef.current && mapInstanceRef.current.hasLayer(marker)) {
         mapInstanceRef.current.removeLayer(marker);
       }
@@ -291,10 +306,10 @@ const MapComponent: React.FC<MapComponentProps> = ({
 
     // Add project markers
     if (filters.layers.projects) {
-      projects.forEach(project => {
+      projects.forEach((project) => {
         const customIcon = createCustomIcon(project);
-        const marker = L.marker(project.coordinates, { 
-          icon: customIcon
+        const marker = L.marker(project.coordinates, {
+          icon: customIcon,
         });
 
         // Add hover effects
@@ -304,7 +319,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
             const container = markerElement.querySelector('.marker-container');
             const pin = container?.querySelector('.marker-pin') as HTMLElement;
             const label = container?.querySelector('.marker-label') as HTMLElement;
-            
+
             if (pin) {
               pin.style.transform = 'scale(1.1)';
               pin.style.zIndex = '1000';
@@ -321,7 +336,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
             const container = markerElement.querySelector('.marker-container');
             const pin = container?.querySelector('.marker-pin') as HTMLElement;
             const label = container?.querySelector('.marker-label') as HTMLElement;
-            
+
             if (pin) {
               pin.style.transform = 'scale(1)';
               pin.style.zIndex = 'auto';
@@ -335,10 +350,10 @@ const MapComponent: React.FC<MapComponentProps> = ({
         // Add click handler
         marker.on('click', () => {
           onProjectSelect(project);
-          
+
           // Animate to project location
           mapInstanceRef.current!.flyTo(project.coordinates, 15, {
-            duration: 1.5
+            duration: 1.5,
           });
         });
 
@@ -415,7 +430,9 @@ const MapComponent: React.FC<MapComponentProps> = ({
               " onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
                 Ver Detalles
               </a>
-              ${compareMode ? `
+              ${
+                compareMode
+                  ? `
                 <button onclick="window.addToComparison && window.addToComparison(${project.id})" style="
                   background: #3b82f6;
                   color: white;
@@ -429,14 +446,16 @@ const MapComponent: React.FC<MapComponentProps> = ({
                 " onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">
                   Comparar
                 </button>
-              ` : ''}
+              `
+                  : ''
+              }
             </div>
           </div>
         `;
 
         marker.bindPopup(popupContent, {
           maxWidth: 300,
-          className: 'custom-popup'
+          className: 'custom-popup',
         });
 
         // Add to cluster group if clustering is enabled
@@ -452,28 +471,28 @@ const MapComponent: React.FC<MapComponentProps> = ({
     // Add heatmap layer
     if (filters.layers.heatmap && projects.length > 0) {
       // Create heatmap data points
-      const heatmapData = projects.map(project => [
+      const heatmapData = projects.map((project) => [
         project.coordinates[0],
         project.coordinates[1],
-        project.score / 10 // Normalize score to 0-1 for heatmap intensity
+        project.score / 10, // Normalize score to 0-1 for heatmap intensity
       ]);
 
       // Simple heatmap implementation using circles
       const heatmapGroup = L.layerGroup();
-      
-      projects.forEach(project => {
+
+      projects.forEach((project) => {
         const intensity = project.score / 10;
-        const radius = 500 + (intensity * 1000); // Radius based on score
-        
+        const radius = 500 + intensity * 1000; // Radius based on score
+
         const circle = L.circle(project.coordinates, {
           radius: radius,
           fillColor: project.color,
-          fillOpacity: 0.1 + (intensity * 0.2),
+          fillOpacity: 0.1 + intensity * 0.2,
           color: project.color,
           weight: 1,
-          opacity: 0.3
+          opacity: 0.3,
         });
-        
+
         heatmapGroup.addLayer(circle);
       });
 
@@ -489,7 +508,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
         [14.7, -90.4],
         [14.5, -90.4],
         [14.5, -90.6],
-        [14.7, -90.6]
+        [14.7, -90.6],
       ];
 
       const municipalityLayer = L.polygon(guatemalaCityBounds, {
@@ -498,13 +517,13 @@ const MapComponent: React.FC<MapComponentProps> = ({
         opacity: 0.6,
         fillColor: '#6b7280',
         fillOpacity: 0.05,
-        dashArray: '5, 5'
+        dashArray: '5, 5',
       }).addTo(mapInstanceRef.current!);
 
       municipalityLayer.bindTooltip('Ciudad de Guatemala', {
         permanent: false,
         direction: 'center',
-        className: 'municipality-tooltip'
+        className: 'municipality-tooltip',
       });
 
       markersRef.current.push(municipalityLayer);
@@ -513,9 +532,21 @@ const MapComponent: React.FC<MapComponentProps> = ({
     // Add road network
     if (filters.layers.roads) {
       const majorRoads: [number, number][][] = [
-        [[14.6349, -90.5069], [14.6100, -90.4800], [14.5800, -90.4500]],
-        [[14.6349, -90.5069], [14.6200, -90.4900], [14.6000, -90.4700]],
-        [[14.6349, -90.5069], [14.6100, -90.5200], [14.5900, -90.5400]]
+        [
+          [14.6349, -90.5069],
+          [14.61, -90.48],
+          [14.58, -90.45],
+        ],
+        [
+          [14.6349, -90.5069],
+          [14.62, -90.49],
+          [14.6, -90.47],
+        ],
+        [
+          [14.6349, -90.5069],
+          [14.61, -90.52],
+          [14.59, -90.54],
+        ],
       ];
 
       majorRoads.forEach((road, index) => {
@@ -523,12 +554,12 @@ const MapComponent: React.FC<MapComponentProps> = ({
           color: '#9ca3af',
           weight: 3,
           opacity: 0.7,
-          dashArray: index === 0 ? undefined : '10, 5'
+          dashArray: index === 0 ? undefined : '10, 5',
         }).addTo(mapInstanceRef.current!);
 
         roadLayer.bindTooltip(`Carretera Principal ${index + 1}`, {
           permanent: false,
-          direction: 'center'
+          direction: 'center',
         });
 
         markersRef.current.push(roadLayer);
@@ -539,15 +570,15 @@ const MapComponent: React.FC<MapComponentProps> = ({
     if (filters.layers.population) {
       const densityAreas = [
         { center: [14.6349, -90.5069] as [number, number], radius: 2000, density: 'high' as const },
-        { center: [14.6100, -90.4900] as [number, number], radius: 1500, density: 'medium' as const },
-        { center: [14.6500, -90.5200] as [number, number], radius: 1000, density: 'low' as const }
+        { center: [14.61, -90.49] as [number, number], radius: 1500, density: 'medium' as const },
+        { center: [14.65, -90.52] as [number, number], radius: 1000, density: 'low' as const },
       ];
 
-      densityAreas.forEach(area => {
+      densityAreas.forEach((area) => {
         const colors = {
           high: { color: '#ef4444', opacity: 0.4 },
           medium: { color: '#f59e0b', opacity: 0.3 },
-          low: { color: '#22c55e', opacity: 0.2 }
+          low: { color: '#22c55e', opacity: 0.2 },
         };
 
         const circle = L.circle(area.center, {
@@ -555,13 +586,16 @@ const MapComponent: React.FC<MapComponentProps> = ({
           ...colors[area.density],
           fillColor: colors[area.density].color,
           fillOpacity: colors[area.density].opacity,
-          weight: 2
+          weight: 2,
         }).addTo(mapInstanceRef.current!);
 
-        circle.bindTooltip(`Densidad Poblacional ${area.density === 'high' ? 'Alta' : area.density === 'medium' ? 'Media' : 'Baja'}`, {
-          permanent: false,
-          direction: 'center'
-        });
+        circle.bindTooltip(
+          `Densidad Poblacional ${area.density === 'high' ? 'Alta' : area.density === 'medium' ? 'Media' : 'Baja'}`,
+          {
+            permanent: false,
+            direction: 'center',
+          },
+        );
 
         markersRef.current.push(circle);
       });
@@ -570,19 +604,26 @@ const MapComponent: React.FC<MapComponentProps> = ({
     // Set up global function for popup comparison button
     if (compareMode && onAddToComparison) {
       (window as any).addToComparison = (projectId: number) => {
-        const project = projects.find(p => p.id === projectId);
+        const project = projects.find((p) => p.id === projectId);
         if (project) {
           onAddToComparison(project);
         }
       };
     }
-
-  }, [projects, filters, onProjectSelect, compareMode, onAddToComparison, selectedForComparison, mapLoaded]);
+  }, [
+    projects,
+    filters,
+    onProjectSelect,
+    compareMode,
+    onAddToComparison,
+    selectedForComparison,
+    mapLoaded,
+  ]);
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-full h-full z-0">
       <div ref={mapRef} className="w-full h-full rounded-xl" />
-      
+
       {/* Enhanced map controls */}
       <div className="absolute top-4 left-4 z-[1000] space-y-2">
         <div className="glass-effect rounded-lg p-3">
@@ -590,15 +631,16 @@ const MapComponent: React.FC<MapComponentProps> = ({
             {projects.length} Proyectos Visibles
           </div>
           <div className="text-xs text-gray-500">
-            Score promedio: {projects.length > 0 ? (projects.reduce((sum, p) => sum + p.score, 0) / projects.length).toFixed(1) : '0.0'}
+            Score promedio:{' '}
+            {projects.length > 0
+              ? (projects.reduce((sum, p) => sum + p.score, 0) / projects.length).toFixed(1)
+              : '0.0'}
           </div>
         </div>
-        
+
         {compareMode && (
           <div className="glass-effect rounded-lg p-3">
-            <div className="text-sm text-blue-700 font-medium">
-              Modo Comparación Activo
-            </div>
+            <div className="text-sm text-blue-700 font-medium">Modo Comparación Activo</div>
             <div className="text-xs text-blue-600">
               {selectedForComparison.length}/3 seleccionados
             </div>
@@ -617,14 +659,16 @@ const MapComponent: React.FC<MapComponentProps> = ({
                 { range: '7.5+', color: '#84cc16', label: 'Muy Bueno' },
                 { range: '6.5+', color: '#eab308', label: 'Bueno' },
                 { range: '5.5+', color: '#f97316', label: 'Regular' },
-                { range: '<5.5', color: '#ef4444', label: 'Bajo' }
+                { range: '<5.5', color: '#ef4444', label: 'Bajo' },
               ].map(({ range, color, label }) => (
                 <div key={range} className="flex items-center text-xs">
-                  <div 
+                  <div
                     className="w-3 h-3 rounded-full mr-2 border border-white"
                     style={{ backgroundColor: color }}
                   ></div>
-                  <span className="text-gray-600">{range} - {label}</span>
+                  <span className="text-gray-600">
+                    {range} - {label}
+                  </span>
                 </div>
               ))}
             </div>
@@ -643,15 +687,17 @@ const MapComponent: React.FC<MapComponentProps> = ({
         .custom-popup .leaflet-popup-content-wrapper {
           background: white;
           border-radius: 12px;
-          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+          box-shadow:
+            0 20px 25px -5px rgba(0, 0, 0, 0.1),
+            0 10px 10px -5px rgba(0, 0, 0, 0.04);
           border: 1px solid #e5e7eb;
         }
-        
+
         .custom-popup .leaflet-popup-tip {
           background: white;
           border: 1px solid #e5e7eb;
         }
-        
+
         .municipality-tooltip {
           background: rgba(0, 0, 0, 0.8) !important;
           border: none !important;
@@ -661,11 +707,11 @@ const MapComponent: React.FC<MapComponentProps> = ({
           border-radius: 6px !important;
           font-weight: 500 !important;
         }
-        
+
         .marker-cluster-custom {
           background: transparent !important;
         }
-        
+
         .leaflet-control-zoom a {
           background: white !important;
           color: #374151 !important;
@@ -673,12 +719,12 @@ const MapComponent: React.FC<MapComponentProps> = ({
           font-size: 16px !important;
           font-weight: bold !important;
         }
-        
+
         .leaflet-control-zoom a:hover {
           background: #f3f4f6 !important;
           color: #111827 !important;
         }
-        
+
         .leaflet-control-scale-line {
           background: rgba(255, 255, 255, 0.8) !important;
           border: 2px solid #374151 !important;

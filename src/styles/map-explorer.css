@@ -270,15 +270,15 @@
   .container-urbop {
     @apply px-3;
   }
-  
+
   .glass-effect {
     backdrop-filter: blur(5px);
   }
-  
+
   .btn {
     @apply px-3 py-2 text-xs;
   }
-  
+
   .map-popup {
     max-width: 280px;
   }
@@ -288,7 +288,7 @@
   .filter-panel {
     max-height: 60vh;
   }
-  
+
   .comparison-modal {
     margin: 1rem;
     max-height: calc(100vh - 2rem);
@@ -307,11 +307,11 @@
     background: rgba(17, 24, 39, 0.95);
     border: 1px solid rgba(75, 85, 99, 0.3);
   }
-  
+
   .form-input {
     @apply bg-gray-800 border-gray-600 text-white;
   }
-  
+
   .map-popup {
     background: rgba(17, 24, 39, 0.98);
     color: white;
@@ -435,9 +435,16 @@
 }
 
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  75% { transform: translateX(5px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
 }
 
 /* Enhanced success states */
