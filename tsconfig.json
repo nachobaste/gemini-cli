@@ -1,19 +1,23 @@
 {
   "compilerOptions": {
-    "strict": true,
-    "esModuleInterop": true,
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
     "skipLibCheck": true,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
-    "sourceMap": true,
-    "composite": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
     "incremental": true,
-    "declaration": true,
-    "allowSyntheticDefaultImports": true,
-    "lib": ["ES2023"],
-    "module": "NodeNext",
-    "moduleResolution": "nodenext",
-    "target": "es2022",
-    "types": ["node", "vitest/globals"]
-  }
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }
