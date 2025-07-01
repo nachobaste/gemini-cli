@@ -1,0 +1,11 @@
+2:I[9107,[],"ClientPageRoot"]
+3:I[648,["580","static/chunks/580-c5e36368a6df0a71.js","671","static/chunks/app/config/page-ab37c26c2c33eef3.js"],"default",1]
+4:I[4707,[],""]
+5:I[6423,[],""]
+6:I[6563,["972","static/chunks/972-bf6fe0395a54e740.js","29","static/chunks/29-8ab52a23576eaf58.js","185","static/chunks/app/layout-106c166196559545.js"],"default",1]
+7:I[376,["601","static/chunks/app/error-dca88a8844d4ca60.js"],"default"]
+8:I[2972,["972","static/chunks/972-bf6fe0395a54e740.js","160","static/chunks/app/not-found-54f8c6bb7ceeab2e.js"],""]
+9:{}
+0:["3rw15pvrrleBzFGgOTW1E",[[["",{"children":["config",{"children":["__PAGE__",{}]}]},"$undefined","$undefined",true],["",{"children":["config",{"children":["__PAGE__",{},[["$L1",["$","$L2",null,{"props":{"params":{},"searchParams":{}},"Component":"$3"}],null],null],null]},[null,["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children","config","children"],"error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","notFoundStyles":"$undefined"}]],null]},[[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/f0bcfb0e086dfdb9.css","precedence":"next","crossOrigin":"$undefined"}]],["$","$L6",null,{"children":["$","$L4",null,{"parallelRouterKey":"children","segmentPath":["children"],"error":"$7","errorStyles":[],"errorScripts":[],"template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":["$","div",null,{"className":"flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-800 p-4","children":[["$","h2",null,{"className":"text-4xl font-bold mb-4","children":"404 - Página No Encontrada"}],["$","p",null,{"className":"text-lg text-center mb-6","children":"Lo sentimos, no pudimos encontrar la página que estás buscando."}],["$","$L8",null,{"href":"/","className":"px-6 py-3 bg-lime-500 text-white rounded-md hover:bg-lime-600 transition-colors text-lg font-medium","children":"Volver al Inicio"}]]}],"notFoundStyles":[]}],"params":"$9"}]],null],null],["$La",null]]]]
+a:[["$","meta","0",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","1",{"charSet":"utf-8"}]]
+1:null

@@ -322,7 +322,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                       <h2 className="text-2xl font-bold mb-6">Acciones</h2>
                       
                       <div className="space-y-4">
-                        <button className="btn btn-primary w-full">Editar Proyecto</button>
+                        <Link href={`/projects/${id}/edit`} className="btn btn-primary w-full text-center">Editar Proyecto</Link>
                         <button className="btn btn-secondary w-full">Generar Reporte</button>
                         <button className="btn btn-outline w-full">Compartir</button>
                       </div>
@@ -487,7 +487,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                       <h2 className="text-2xl font-bold mb-6">Acciones</h2>
                       
                       <div className="space-y-4">
-                        <button className="btn btn-primary w-full">Editar Proyecto</button>
+                        <Link href={`/projects/${id}/edit`} className="btn btn-primary w-full text-center">Editar Proyecto</Link>
                         <button className="btn btn-secondary w-full">Generar Reporte</button>
                         <button className="btn btn-outline w-full">Compartir</button>
                       </div>

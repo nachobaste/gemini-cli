@@ -1,1 +1,34 @@
-{}
+{
+  "../node_modules/@supabase/auth-js/dist/module/lib/helpers.js -> @supabase/node-fetch": {
+    "id": 485,
+    "files": []
+  },
+  "../node_modules/@supabase/functions-js/dist/module/helper.js -> @supabase/node-fetch": {
+    "id": 485,
+    "files": []
+  },
+  "../node_modules/@supabase/realtime-js/dist/module/RealtimeClient.js -> @supabase/node-fetch": {
+    "id": 485,
+    "files": []
+  },
+  "../node_modules/@supabase/storage-js/dist/module/lib/helpers.js -> @supabase/node-fetch": {
+    "id": 485,
+    "files": []
+  },
+  "app/map/page.tsx -> ./MapComponent": {
+    "id": 7191,
+    "files": [
+      "static/css/3f4986a4531cb045.css",
+      "static/chunks/d0deef33-08e72c68cc07d6b8.js",
+      "static/chunks/29-8ab52a23576eaf58.js",
+      "static/chunks/933.80f853b459c5643d.js",
+      "static/chunks/191.f5a0dfba9f865fda.js"
+    ]
+  },
+  "app/projects/[id]/page.tsx -> react-leaflet": {
+    "id": 9305,
+    "files": [
+      "static/chunks/305.238d292205f5e859.js"
+    ]
+  }
+}
