@@ -82,9 +82,4 @@ INSERT INTO municipalities (name, department, country, population, area_km2) VAL
 ('Chimaltenango', 'Chimaltenango', 'Guatemala', 96985, 212.0),
 ('Quetzaltenango', 'Quetzaltenango', 'Guatemala', 180706, 120.0);
 
--- Update sequences to avoid conflicts
-SELECT setval('projects_id_seq', (SELECT MAX(id) FROM projects) + 1, false);
-SELECT setval('mcda_parameters_id_seq', (SELECT MAX(id) FROM mcda_parameters) + 1, false);
-SELECT setval('mcda_evaluations_id_seq', (SELECT MAX(id) FROM mcda_evaluations) + 1, false);
-SELECT setval('business_model_canvas_id_seq', (SELECT MAX(id) FROM business_model_canvas) + 1, false);
-SELECT setval('municipalities_id_seq', (SELECT MAX(id) FROM municipalities) + 1, false);
+

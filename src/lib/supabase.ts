@@ -6,6 +6,29 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
+// Helper function to parse Supabase POINT type to { x: lon, y: lat }
+const parsePoint = (point: any): { x: number; y: number } | undefined => {
+  if (!point) return undefined;
+
+  // Handle string format like "(lon,lat)"
+  if (typeof point === 'string') {
+    const match = point.match(/\(([^,]+),([^)]+)\)/);
+    if (match) {
+      const lon = parseFloat(match[1]);
+      const lat = parseFloat(match[2]);
+      if (!isNaN(lon) && !isNaN(lat)) {
+        return { x: lon, y: lat };
+      }
+    }
+  }
+  // Handle object format like { x: lon, y: lat } (if Supabase returns it directly)
+  else if (typeof point === 'object' && point !== null && typeof point.x === 'number' && typeof point.y === 'number') {
+    return { x: point.x, y: point.y };
+  }
+
+  return undefined;
+};
+
 // Database service functions
 export class DatabaseService {
   // Projects
@@ -16,18 +39,24 @@ export class DatabaseService {
       .order('created_at', { ascending: false })
     
     if (error) throw error
-    return data as Project[]
+    return data.map(p => ({
+      ...p,
+      coordinates: parsePoint(p.coordinates) // Parse coordinates here
+    })) as Project[]
   }
 
   static async getProject(id: string) {
     const { data, error } = await supabase
       .from('projects')
-      .select('*')
+      .select('*, mcda_evaluations(*, mcda_parameters(*)), business_model_canvas(*)')
       .eq('id', id)
       .single()
     
     if (error) throw error
-    return data as Project
+    return {
+      ...data,
+      coordinates: parsePoint(data.coordinates) // Parse coordinates here
+    } as Project
   }
 
   static async createProject(project: Omit<Project, 'id' | 'created_at' | 'updated_at'>) {

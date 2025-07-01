@@ -10,6 +10,29 @@ import ComparisonModal from './ComparisonModal';
 import { DatabaseService } from '../../lib/supabase';
 import { Project } from '@/types';
 
+// Helper function to parse Supabase POINT type to [lat, lng]
+const parseSupabasePoint = (point: any): [number, number] | undefined => {
+  if (!point) return undefined;
+
+  // Handle string format like "(lon,lat)"
+  if (typeof point === 'string') {
+    const match = point.match(/\(([^,]+),([^)]+)\)/);
+    if (match) {
+      const lon = parseFloat(match[1]);
+      const lat = parseFloat(match[2]);
+      if (!isNaN(lat) && !isNaN(lon)) {
+        return [lat, lon];
+      }
+    }
+  }
+  // Handle object format like { x: lon, y: lat }
+  else if (typeof point === 'object' && point !== null && typeof point.x === 'number' && typeof point.y === 'number') {
+    return [point.y, point.x]; // Leaflet expects [lat, lng]
+  }
+
+  return undefined;
+};
+
 const MapPage = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
@@ -124,7 +147,7 @@ const MapPage = () => {
           <MapComponent 
             projects={projects.map(p => ({
               ...p,
-              coordinates: [p.coordinates?.y, p.coordinates?.x], // Convert to [lat, lng]
+              coordinates: p.coordinates ? [p.coordinates.y, p.coordinates.x] : undefined, // Map to [lat, lng] for Leaflet
               score: p.mcda_score,
               assetClass: p.asset_class,
               address: p.location,

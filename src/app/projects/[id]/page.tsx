@@ -4,6 +4,39 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { DatabaseService } from '@/lib/supabase';
 import { Project, MCDAEvaluationWithDetails, BusinessModelCanvas } from '@/types';
+import dynamic from 'next/dynamic';
+
+// Dynamically import react-leaflet components to prevent SSR issues
+const MapContainer = dynamic(
+  () => import('react-leaflet').then((mod) => mod.MapContainer),
+  { ssr: false }
+);
+const TileLayer = dynamic(
+  () => import('react-leaflet').then((mod) => mod.TileLayer),
+  { ssr: false }
+);
+const Marker = dynamic(
+  () => import('react-leaflet').then((mod) => mod.Marker),
+  { ssr: false }
+);
+const Popup = dynamic(
+  () => import('react-leaflet').then((mod) => mod.Popup),
+  { ssr: false }
+);
+
+// Import Leaflet itself for custom icon (only if needed for client-side)
+let L: typeof import('leaflet');
+if (typeof window !== 'undefined') {
+  L = require('leaflet');
+  // Fix for default markers in Leaflet
+  // @ts-ignore
+  delete L.Icon.Default.prototype._getIconUrl;
+  L.Icon.Default.mergeOptions({
+    iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+  });
+}
 
 export default function ProjectDetailPage({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -19,6 +52,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
       try {
         const fetchedProject = await DatabaseService.getProject(id);
         setProject(fetchedProject);
+        // console.log('Raw project coordinates on detail page:', fetchedProject.coordinates); // Debugging line
 
         const score = await DatabaseService.calculateMCDAScore(id);
         setMcdaScore(score);
@@ -53,6 +87,9 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
         return 'bg-gray-500';
     }
   };
+
+  // Prepare coordinates for Leaflet map
+  const mapCoordinates: [number, number] | undefined = project?.coordinates ? [project.coordinates.y, project.coordinates.x] : undefined;
 
   return (
     <div className="animate-fade-in">
@@ -452,7 +489,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                       <div className="space-y-4">
                         <button className="btn btn-primary w-full">Editar Proyecto</button>
                         <button className="btn btn-secondary w-full">Generar Reporte</button>
-                        <button className="btn btn-outline w-full">Exportar Análisis</button>
+                        <button className="btn btn-outline w-full">Compartir</button>
                       </div>
                     </div>
                   </div>
