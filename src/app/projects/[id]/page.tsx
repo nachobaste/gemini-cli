@@ -563,9 +563,12 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                   )}
                 </div>
                 
-                <div className="flex justify-end space-x-4">
-                  <button className="btn btn-secondary">Editar BMC</button>
-                  <button className="btn btn-primary">Guardar Cambios</button>
+                <div className="flex justify-end mt-6">
+                  {bmc ? (
+                    <Link href={`/projects/${id}/bmc/edit`} className="btn btn-secondary">Editar BMC</Link>
+                  ) : (
+                    <Link href={`/projects/${id}/bmc/edit`} className="btn btn-primary">Crear BMC</Link>
+                  )}
                 </div>
               </div>
             )}
