@@ -17,8 +17,8 @@ CREATE POLICY "Users can view all projects" ON projects
 CREATE POLICY "Authenticated users can create projects" ON projects
     FOR INSERT WITH CHECK (auth.role() = 'authenticated');
 
-CREATE POLICY "Users can update their own projects" ON projects
-    FOR UPDATE USING (auth.uid() = created_by);
+CREATE POLICY "Authenticated users can update projects" ON projects
+    FOR UPDATE USING (auth.role() = 'authenticated');
 
 CREATE POLICY "Users can delete their own projects" ON projects
     FOR DELETE USING (auth.uid() = created_by);
