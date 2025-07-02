@@ -48,7 +48,7 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
       router.push(`/projects/${id}`); // Redirect back to project detail page
     } catch (err) {
       console.error('Error saving project:', err);
-      setError('Failed to save project data.');
+      setError(`Failed to save project data: ${err instanceof Error ? err.message : 'An unknown error occurred'}`);
     } finally {
       setSaving(false);
     }
