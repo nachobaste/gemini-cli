@@ -79,7 +79,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
           ">
             <div style="display: flex; flex-direction: column; align-items: center;">
               <div style="font-size: ${fontSize - 2}px;">${assetClassIcons[project.assetClass] || '📍'}</div>
-              <div style="font-size: ${fontSize - 4}px; margin-top: -2px;">${project.score}</div>
+              <div style="font-size: ${fontSize - 4}px; margin-top: -2px;">${project.score !== null && project.score !== undefined ? project.score.toFixed(1) : 'N/A'}</div>
             </div>
           </div>
           <div class="marker-label" style="
@@ -100,7 +100,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
             z-index: 1001;
           ">
             <div style="font-weight: bold; margin-bottom: 2px;">${project.name}</div>
-            <div style="font-size: 10px; color: #ccc;">${project.assetClass} • Score: ${project.score}</div>
+            <div style="font-size: 10px; color: #ccc;">${project.assetClass} • Score: ${project.score !== null && project.score !== undefined ? project.score.toFixed(1) : 'N/A'}</div>
           </div>
           ${
             isSelected
@@ -370,7 +370,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
                 font-size: 14px;
                 font-weight: bold;
                 margin-left: 8px;
-              ">${project.score}</div>
+              ">${project.score !== null && project.score !== undefined ? project.score.toFixed(1) : 'N/A'}</div>
             </div>
             
             <div style="display: flex; align-items: center; margin-bottom: 8px; color: #6b7280;">

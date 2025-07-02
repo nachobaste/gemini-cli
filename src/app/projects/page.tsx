@@ -110,7 +110,7 @@ const ProjectsPage = () => {
                   <p className="text-gray-600">{project.location}</p>
                   <div className="flex items-center justify-between mt-6">
                     <span className="text-gray-500">{project.asset_class}</span>
-                    <span className="text-lg font-bold text-lime-600">{project.mcda_score?.toFixed(1) || 'N/A'}</span>
+                    <span className="text-lg font-bold text-lime-600">{project.mcda_score !== null && project.mcda_score !== undefined ? project.mcda_score.toFixed(1) : 'N/A'}</span>
                   </div>
                 </div>
               </div>
