@@ -50,10 +50,14 @@ const KanbanView: React.FC<KanbanViewProps> = ({ projects: initialProjects, grou
 
     // Update in database
     try {
+      console.log(`Attempting to update project ${projectId} to status ${newStatus}`);
       await DatabaseService.updateProject(projectId, { status: newStatus });
       onProjectUpdated(); // Notify parent to re-fetch projects
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error updating project status:', error);
+      if (error.code === 'PGRST116') {
+        console.error('Supabase Error PGRST116: Project not found or RLS policy denied update. Check project ID and RLS policies.');
+      }
       // Revert UI if update fails
       setProjects(initialProjects);
     }
