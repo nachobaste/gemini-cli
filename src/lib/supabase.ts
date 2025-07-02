@@ -42,6 +42,7 @@ export class DatabaseService {
 
     const projectsWithScores = await Promise.all(data.map(async (p) => {
       const score = await DatabaseService.calculateMCDAScore(p.id);
+      console.log(`Project ${p.id} MCDA Score:`, score); // Add this line for debugging
       return {
         ...p,
         coordinates: parsePoint(p.coordinates),
