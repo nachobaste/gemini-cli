@@ -75,8 +75,10 @@ const KanbanView: React.FC<KanbanViewProps> = ({ projects, groupBy }) => {
                   <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(project.status)} text-white`}>
                     {project.status.replace('_', ' ')}
                   </span>
-                  {project.mcda_score !== undefined && (
+                  {project.mcda_score !== null && project.mcda_score !== undefined ? (
                     <span className="text-lime-400 text-sm font-bold">{project.mcda_score.toFixed(1)}</span>
+                  ) : (
+                    <span className="text-gray-400 text-sm font-bold">N/A</span>
                   )}
                 </div>
               </Link>
