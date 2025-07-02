@@ -11,6 +11,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "jest",
+    "typecheck": "tsc --noEmit",
+    "preflight": "npm run build && npm run test && npm run typecheck && npm run lint",
     "db:setup": "node scripts/setup-database.js",
     "db:migrate": "node scripts/run-migration.js",
     "db:seed": "node scripts/seed.js"

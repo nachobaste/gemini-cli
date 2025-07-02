@@ -1,202 +1,184 @@
 
-                                 Apache License
-                           Version 2.0, January 2004
-                        http://www.apache.org/licenses/
+## HICCUP License Agreement
 
-   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+This For-Profit App Source Code License Agreement (the "Agreement") is entered into as of May 1, 2025 (the "Effective Date") by and between:
 
-   1. Definitions.
+**URBOP, S.A.**, a [Legal Structure of URBOP, S.A.] with its principal place of business at [Address of URBOP, S.A.],
+and
+**Synergy Systems, S.A.**, a [Legal Structure of Synergy Systems, S.A.] with its principal place of business at [Address of Synergy Systems, S.A.]
+(collectively referred to as "Licensors"), and
 
-      "License" shall mean the terms and conditions for use, reproduction,
-      and distribution as defined by Sections 1 through 9 of this document.
+**[Licensee Company Name/Licensee Name]**, a [Licensee Legal Structure] with its principal place of business at [Licensee Address] ("Licensee").
 
-      "Licensor" shall mean the copyright owner or entity authorized by
-      the copyright owner that is granting the License.
+Licensors and Licensee may be referred to individually as a "Party" and collectively as the "Parties."
 
-      "Legal Entity" shall mean the union of the acting entity and all
-      other entities that control, are controlled by, or are under common
-      control with that entity. For the purposes of this definition,
-      "control" means (i) the power, direct or indirect, to cause the
-      direction or management of such entity, whether by contract or
-      otherwise, or (ii) ownership of fifty percent (50%) or more of the
-      outstanding shares, or (iii) beneficial ownership of such entity.
+**PREAMBLE: PROHIBITION ON UNAUTHORIZED USE**
 
-      "You" (or "Your") shall mean an individual or Legal Entity
-      exercising permissions granted by this License.
+**LICENSORS ARE THE SOLE AND EXCLUSIVE JOINT PROPRIETORS OF THE SOURCE CODE (AS DEFINED BELOW). ANY ACCESS TO, USE, REPRODUCTION, MODIFICATION, OR DISTRIBUTION OF THE SOURCE CODE, IN WHOLE OR IN PART, IS STRICTLY FORBIDDEN UNLESS AND UNTIL A WRITTEN LICENSE AGREEMENT, SUCH AS THIS AGREEMENT, IS DULY EXECUTED BY THE INTENDED LICENSEE AND BY AUTHORIZED REPRESENTATIVES OF BOTH URBOP, S.A. AND SYNERGY SYSTEMS, S.A. PRIOR TO ANY SUCH ACTIVITY. THIS AGREEMENT SETS FORTH THE TERMS AND CONDITIONS UNDER WHICH LICENSORS ARE WILLING TO GRANT A LICENSE TO THE SOURCE CODE.**
 
-      "Source" form shall mean the preferred form for making modifications,
-      including but not limited to software source code, documentation
-      source, and configuration files.
+**WHEREAS**, Licensors are the sole and exclusive joint owners of certain software source code known as [App Name] Source Code, including any and all associated documentation, updates, and modifications (collectively, the "Source Code"); and
 
-      "Object" form shall mean any form resulting from mechanical
-      transformation or translation of a Source form, including but
-      not limited to compiled object code, generated documentation,
-      and conversions to other media types.
+**WHEREAS**, Licensee desires to obtain, and Licensors desire to grant, a license to use, modify, and distribute the Source Code subject to the terms and conditions of this Agreement for for-profit activities, and only after this Agreement is fully executed.
 
-      "Work" shall mean the work of authorship, whether in Source or
-      Object form, made available under the License, as indicated by a
-      copyright notice that is included in or attached to the work
-      (an example is provided in the Appendix below).
+**NOW, THEREFORE**, in consideration of the mutual covenants and promises herein contained, and the due execution of this Agreement by all Parties, the Parties agree as follows:
 
-      "Derivative Works" shall mean any work, whether in Source or Object
-      form, that is based on (or derived from) the Work and for which the
-      editorial revisions, annotations, elaborations, or other modifications
-      represent, as a whole, an original work of authorship. For the purposes
-      of this License, Derivative Works shall not include works that remain
-      separable from, or merely link (or bind by name) to the interfaces of,
-      the Work and Derivative Works thereof.
+### 1. Definitions
 
-      "Contribution" shall mean any work of authorship, including
-      the original version of the Work and any modifications or additions
-      to that Work or Derivative Works thereof, that is intentionally
-      submitted to Licensor for inclusion in the Work by the copyright owner
-      or by an individual or Legal Entity authorized to submit on behalf of
-      the copyright owner. For the purposes of this definition, "submitted"
-      means any form of electronic, verbal, or written communication sent
-      to the Licensor or its representatives, including but not limited to
-      communication on electronic mailing lists, source code control systems,
-      and issue tracking systems that are managed by, or on behalf of, the
-      Licensor for the purpose of discussing and improving the Work, but
-      excluding communication that is conspicuously marked or otherwise
-      designated in writing by the copyright owner as "Not a Contribution."
+* **"Source Code"**: Shall mean the human-readable computer programming code of the [App Name] application, including all comments, associated modules, data files, and documentation provided by Licensors to Licensee under this Agreement.
+* **"Licensed Product(s)"**: Shall mean software applications or products developed by Licensee that incorporate or are derived from the Source Code.
+* **"Effective Date"**: Shall mean the date first written above, contingent upon full execution of this Agreement by all parties.
+* **"Intellectual Property Rights"**: Shall mean all past, present, and future rights of the following types, which may exist or be created under the laws of any jurisdiction in the world: (a) rights associated with works of authorship, including exclusive exploitation rights, copyrights, moral rights, and mask work rights; (b) trademark and trade name rights and similar rights; (c) trade secret rights; (d) patent and industrial property rights; (e) other proprietary rights in intellectual property of every kind and nature; and (f) rights in or relating to registrations, renewals, extensions, combinations, divisions, and reissues of, and applications for, any of the rights referred to in clauses (a) through (e) of this sentence.
+* **"Fee"**: Shall mean the license fee payable by Licensee to Licensors as set forth in Section 3.
 
-      "Contributor" shall mean Licensor and any individual or Legal Entity
-      on behalf of whom a Contribution has been received by Licensor and
-      subsequently incorporated within the Work.
+### 2. License Grant
 
-   2. Grant of Copyright License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,
-      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-      copyright license to reproduce, prepare Derivative Works of,
-      publicly display, publicly perform, sublicense, and distribute the
-      Work and such Derivative Works in Source or Object form.
+* **2.1. Grant of License**: Subject to the terms and conditions of this Agreement, including full execution by all Parties and timely payment of the Fee, Licensors hereby grant to Licensee a [e.g., non-exclusive, perpetual, worldwide, non-transferable (except as provided herein)] license to:
+    * a) Use and reproduce the Source Code for the sole purpose of developing, testing, and maintaining Licensed Product(s).
+    * b) Modify and create derivative works of the Source Code to develop the Licensed Product(s). Licensee shall own the Intellectual Property Rights to such modifications made by Licensee, provided that such ownership does not grant Licensee any rights to the underlying Source Code beyond the scope of this Agreement.
+    * c) Compile the Source Code and its derivative works into object code form.
+    * d) Distribute the Licensed Product(s) in object code form only to end-users, either directly or indirectly through a distribution channel.
+* **2.2. Restrictions**: Licensee shall NOT, and shall not permit any third party to:
+    * a) Access, use, reproduce, modify, or distribute the Source Code or any portion thereof in any form before this Agreement is fully executed by Licensee and by authorized representatives of both URBOP, S.A. and Synergy Systems, S.A.
+    * b) Distribute, sublicense, sell, lease, rent, or otherwise transfer or make available the Source Code (or any portion thereof) in human-readable form to any third party, except as expressly permitted for authorized subcontractors under Section 2.3.
+    * c) Use the Source Code to develop any product that directly competes with Licensors' [App Name] application or other products offered by Licensors, unless expressly agreed in writing by both URBOP, S.A. and Synergy Systems, S.A.
+    * d) Remove, alter, or obscure any copyright, trademark, or other proprietary notices of Licensors (or of URBOP, S.A. or Synergy Systems, S.A. individually) contained in or on the Source Code or any Licensed Product(s) (unless and to the extent such notices are part of a user interface that Licensee is reasonably modifying for its Licensed Product).
+    * e) Use the names, logos, or trademarks of Licensors (or of URBOP, S.A. or Synergy Systems, S.A. individually) to market the Licensed Product(s) without the prior written consent of both URBOP, S.A. and Synergy Systems, S.A., except to the extent necessary for any required attributions.
+    * f) Use the Source Code for any unlawful purpose or in any manner that infringes the Intellectual Property Rights of any third party.
+* **2.3. Subcontractors**: Licensee may permit its third-party subcontractors to use the Source Code solely for the benefit of Licensee in accordance with the terms of this Agreement, provided that: (a) Licensee shall be responsible for any breach of this Agreement by its subcontractors; and (b) such subcontractors agree in writing to be bound by confidentiality and use restrictions at least as protective as those set forth in this Agreement, including the prohibition on use prior to execution of this Agreement. Licensee shall not allow subcontractors to retain copies of the Source Code upon completion of their services.
 
-   3. Grant of Patent License. Subject to the terms and conditions of
-      this License, each Contributor hereby grants to You a perpetual,
-      worldwide, non-exclusive, no-charge, royalty-free, irrevocable
-      (except as stated in this section) patent license to make, have made,
-      use, offer to sell, sell, import, and otherwise transfer the Work,
-      where such license applies only to those patent claims licensable
-      by such Contributor that are necessarily infringed by their
-      Contribution(s) alone or by combination of their Contribution(s)
-      with the Work to which such Contribution(s) was submitted. If You
-      institute patent litigation against any entity (including a
-      cross-claim or counterclaim in a lawsuit) alleging that the Work
-      or a Contribution incorporated within the Work constitutes direct
-      or contributory patent infringement, then any patent licenses
-      granted to You under this License for that Work shall terminate
-      as of the date such litigation is filed.
+### 3. License Fee and Payment
 
-   4. Redistribution. You may reproduce and distribute copies of the
-      Work or Derivative Works thereof in any medium, with or without
-      modifications, and in Source or Object form, provided that You
-      meet the following conditions:
+* **3.1. License Fee**: In consideration for the license granted herein, Licensee shall pay Licensors a one-time (or recurring, specify if applicable) fee of [Amount in USD/Specify Currency] (the "Fee").
+* **3.2. Payment Terms**: The Fee shall be due and payable by Licensee to Licensors (or their designated agent, as instructed in writing by Licensors) within [Number] days of the full execution of this Agreement by all Parties (or specify other payment schedule). Payments shall be made to the bank account(s) designated in writing by Licensors.
+* **3.3. Taxes**: All fees payable under this Agreement are exclusive of any applicable taxes. Licensee shall be responsible for all such taxes, excluding taxes based on Licensors' net income.
 
-      (a) You must give any other recipients of the Work or
-          Derivative Works a copy of this License; and
+### 4. Intellectual Property Rights
 
-      (b) You must cause any modified files to carry prominent notices
-          stating that You changed the files; and
+* **4.1. Ownership**: Licensee acknowledges that URBOP, S.A. and Synergy Systems, S.A. are the sole and exclusive joint owners of all right, title, and interest in and to the Source Code and all Intellectual Property Rights therein, subject only to the license granted to Licensee hereunder. Nothing in this Agreement shall be construed as transferring any ownership rights in the Source Code to Licensee.
+* **4.2. Licensee Modifications**: Subject to Licensors' underlying joint ownership of the Source Code, Licensee shall own the Intellectual Property Rights in any modifications or derivative works of the Source Code created by Licensee ("Licensee Modifications"). Licensee grants Licensors a non-exclusive, royalty-free, perpetual, irrevocable, worldwide license to use, reproduce, modify, distribute, and sublicense any Licensee Modifications that are provided by Licensee to Licensors.
+* **4.3. No Implied Rights**: No rights or licenses are granted by Licensors to Licensee except as expressly provided in this Agreement.
 
-      (c) You must retain, in the Source form of any Derivative Works
-          that You distribute, all copyright, patent, trademark, and
-          attribution notices from the Source form of the Work,
-          excluding those notices that do not pertain to any part of
-          the Derivative Works; and
+### 5. Delivery and Acceptance (Optional)
 
-      (d) If the Work includes a "NOTICE" text file as part of its
-          distribution, then any Derivative Works that You distribute must
-          include a readable copy of the attribution notices contained
-          within such NOTICE file, excluding those notices that do not
-          pertain to any part of the Derivative Works, in at least one
-          of the following places: within a NOTICE text file distributed
-          as part of the Derivative Works; within the Source form or
-          documentation, if provided along with the Derivative Works; or,
-          within a display generated by the Derivative Works, if and
-          wherever such third-party notices normally appear. The contents
-          of the NOTICE file are for informational purposes only and
-          do not modify the License. You may add Your own attribution
-          notices within Derivative Works that You distribute, alongside
-          or as an addendum to the NOTICE text from the Work, provided
-          that such additional attribution notices cannot be construed
-          as modifying the License.
+* **5.1. Delivery**: Licensors shall deliver one (1) complete electronic copy of the Source Code to Licensee within [Number] days of the later of: (a) the full execution of this Agreement by all Parties, and (b) Licensors' receipt of the Fee (if payment is due upfront).
+* **5.2. Acceptance**: Licensee shall have [Number] days from the date of delivery of the Source Code (the "Acceptance Period") to evaluate and test the Source Code to confirm that it substantially conforms to its documentation (if any). If Licensee determines that the Source Code does not substantially conform, Licensee shall provide written notice to Licensors detailing such non-conformance within the Acceptance Period. Licensors shall use commercially reasonable efforts to correct such non-conformance within [Number] days. If Licensors fail to correct such non-conformance, Licensee's sole remedy shall be to terminate this Agreement and receive a full refund of the Fee paid. If Licensee does not provide such written notice within the Acceptance Period, the Source Code shall be deemed accepted.
 
-      You may add Your own copyright statement to Your modifications and
-      may provide additional or different license terms and conditions
-      for use, reproduction, or distribution of Your modifications, or
-      for any such Derivative Works as a whole, provided Your use,
-      reproduction, and distribution of the Work otherwise complies with
-      the conditions stated in this License.
+### 6. Support and Updates (Optional - Choose one or customize)
 
-   5. Submission of Contributions. Unless You explicitly state otherwise,
-      any Contribution intentionally submitted for inclusion in the Work
-      by You to the Licensor shall be under the terms and conditions of
-      this License, without any additional terms or conditions.
-      Notwithstanding the above, nothing herein shall supersede or modify
-      the terms of any separate license agreement you may have executed
-      with Licensor regarding such Contributions.
+* **6.1. No Support or Updates**: Licensors are under no obligation to provide any support, maintenance, error corrections, bug fixes, updates, or upgrades to the Source Code.
+    **OR**
+* **6.2. Limited Support**: Licensors will provide Licensee with [Specify level of support] for a period of [X months/years]. Details of such support may be outlined in a separate Support Addendum executed by all Parties.
+    **OR**
+* **6.3. Updates**: For a period of [Number] year(s) from the Effective Date, Licensors may, at their sole discretion, provide Licensee with any new versions or updates to the Source Code that Licensors make generally available to their other licensees of the Source Code. Such updates will be subject to the terms of this Agreement.
 
-   6. Trademarks. This License does not grant permission to use the trade
-      names, trademarks, service marks, or product names of the Licensor,
-      except as required for reasonable and customary use in describing the
-      origin of the Work and reproducing the content of the NOTICE file.
+### 7. Warranties and Disclaimers
 
-   7. Disclaimer of Warranty. Unless required by applicable law or
-      agreed to in writing, Licensor provides the Work (and each
-      Contributor provides its Contributions) on an "AS IS" BASIS,
-      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-      implied, including, without limitation, any warranties or conditions
-      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
-      PARTICULAR PURPOSE. You are solely responsible for determining the
-      appropriateness of using or redistributing the Work and assume any
-      risks associated with Your exercise of permissions under this License.
+* **7.1. Licensors' Warranties**: Licensors jointly and severally (or specify if only jointly) represent and warrant that:
+    * a) They have the full right, power, and authority to enter into this Agreement and grant the licenses herein as joint owners of the Source Code.
+    * b) To the best of Licensors' knowledge, the Source Code, as delivered and used in accordance with this Agreement, does not infringe upon any valid copyright or trade secret of any third party in [Specify Jurisdiction, e.g., the United States].
+* **7.2. Licensee Warranties**: Licensee represents and warrants that:
+    * a) It has the full right, power, and authority to enter into this Agreement.
+    * b) It will use the Source Code and develop and distribute Licensed Product(s) in compliance with all applicable laws and regulations and the terms of this Agreement.
+* **7.3. Disclaimer of Warranties**: EXCEPT AS EXPRESSLY STATED IN SECTION 7.1, THE SOURCE CODE IS PROVIDED "AS IS" WITHOUT ANY WARRANTY WHATSOEVER. LICENSORS DISCLAIM ALL OTHER WARRANTIES, EXPRESS, IMPLIED, OR STATUTORY, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT OF THIRD-PARTY RIGHTS (OTHER THAN AS STATED IN SECTION 7.1(b)), AND ANY WARRANTIES ARISING FROM COURSE OF DEALING, USAGE, OR TRADE PRACTICE. LICENSORS DO NOT WARRANT THAT THE SOURCE CODE WILL BE ERROR-FREE, UNINTERRUPTED, OR THAT DEFECTS WILL BE CORRECTED. LICENSEE ACKNOWLEDGES THAT IT HAS RELIED ON NO WARRANTIES OTHER THAN THE EXPRESS WARRANTIES IN THIS AGREEMENT.
 
-   8. Limitation of Liability. In no event and under no legal theory,
-      whether in tort (including negligence), contract, or otherwise,
-      unless required by applicable law (such as deliberate and grossly
-      negligent acts) or agreed to in writing, shall any Contributor be
-      liable to You for damages, including any direct, indirect, special,
-      incidental, or consequential damages of any character arising as a
-      result of this License or out of the use or inability to use the
-      Work (including but not limited to damages for loss of goodwill,
-      work stoppage, computer failure or malfunction, or any and all
-      other commercial damages or losses), even if such Contributor
-      has been advised of the possibility of such damages.
+### 8. Limitation of Liability
 
-   9. Accepting Warranty or Additional Liability. While redistributing
-      the Work or Derivative Works thereof, You may choose to offer,
-      and charge a fee for, acceptance of support, warranty, indemnity,
-      or other liability obligations and/or rights consistent with this
-      License. However, in accepting such obligations, You may act only
-      on Your own behalf and on Your sole responsibility, not on behalf
-      of any other Contributor, and only if You agree to indemnify,
-      defend, and hold each Contributor harmless for any liability
-      incurred by, or claims asserted against, such Contributor by reason
-      of your accepting any such warranty or additional liability.
+* **8.1. Exclusion of Consequential Damages**: TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL LICENSORS (INDIVIDUALLY OR COLLECTIVELY) OR LICENSEE BE LIABLE TO THE OTHER PARTY OR ANY THIRD PARTY FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, PUNITIVE, OR EXEMPLARY DAMAGES (INCLUDING BUT NOT LIMITED TO LOST PROFITS, LOST SAVINGS, LOSS OF DATA, OR BUSINESS INTERRUPTION) ARISING OUT OF OR IN CONNECTION WITH THIS AGREEMENT OR THE USE OF OR INABILITY TO USE THE SOURCE CODE, EVEN IF SUCH PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+* **8.2. Total Liability**: TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, LICENSORS' TOTAL AGGREGATE LIABILITY (WHETHER JOINTLY OR SEVERALLY) TO LICENSEE OR ANY THIRD PARTY ARISING OUT OF OR IN CONNECTION WITH THIS AGREEMENT AND THE SOURCE CODE, FROM ALL CAUSES OF ACTION AND ALL THEORIES OF LIABILITY, WILL BE LIMITED TO AND WILL NOT EXCEED THE TOTAL FEES ACTUALLY PAID BY LICENSEE TO LICENSORS UNDER THIS AGREEMENT.
+* **8.3. Basis of Bargain**: The Parties acknowledge that the limitations of liability and disclaimers of warranties set forth in this Agreement form an essential basis of the bargain between the Parties and that Licensors would not have entered into this Agreement or granted the licenses herein without such limitations and disclaimers.
 
-   END OF TERMS AND CONDITIONS
+### 9. Indemnification
 
-   APPENDIX: How to apply the Apache License to your work.
+* **9.1. Indemnification by Licensors**: Licensors shall jointly (or specify if severally, or a mechanism for shared responsibility) defend, indemnify, and hold harmless Licensee from and against any third-party claims, actions, suits, or proceedings alleging that the Source Code, as delivered by Licensors and used by Licensee in accordance with the terms of this Agreement, infringes any [Specify Jurisdiction, e.g., U.S.] copyright or misappropriates any trade secret, and Licensors shall pay all costs, damages, and reasonable attorneys' fees finally awarded against Licensee as a result of, or for amounts paid by Licensee under a settlement approved in writing by both URBOP, S.A. and Synergy Systems, S.A. of, such a claim; provided that Licensee: (a) promptly gives Licensors (with notice to both URBOP, S.A. and Synergy Systems, S.A.) written notice of the claim; (b) gives Licensors sole control of the defense and settlement of the claim (provided that Licensors may not settle any claim unless it unconditionally releases Licensee of all liability without Licensee's consent, not to be unreasonably withheld); and (c) provides to Licensors all reasonable assistance, at Licensors' expense.
+    * *Licensors' obligations under this Section 9.1 shall not apply to the extent a claim arises from: (i) modification of the Source Code by anyone other than Licensors; (ii) combination of the Source Code with other software, data, or equipment not provided by Licensors if the infringement would have been avoided but for such combination; (iii) use of a superseded or altered release of the Source Code if the infringement would have been avoided by use of a current unaltered release of the Source Code that Licensors provided to Licensee; or (iv) any use of the Source Code not in accordance with this Agreement.*
+* **9.2. Indemnification by Licensee**: Licensee shall defend, indemnify, and hold harmless Licensors (both URBOP, S.A. and Synergy Systems, S.A., and their respective officers, directors, employees, and agents) from and against any and all claims, losses, liabilities, damages, costs, and expenses (including reasonable attorneys' fees) arising out of or relating to: (a) Licensee's use of the Source Code in a manner not authorized by this Agreement; (b) the development, marketing, sale, or distribution of the Licensed Product(s), including but not limited to any claims of product liability or infringement of third-party rights by the Licensed Product(s) (except to the extent Licensors are obligated to indemnify Licensee under Section 9.1); or (c) any breach by Licensee of its representations, warranties, or obligations under this Agreement.
 
-      To apply the Apache License to your work, attach the following
-      boilerplate notice, with the fields enclosed by brackets "[]"
-      replaced with your own identifying information. (Don't include
-      the brackets!)  The text should be enclosed in the appropriate
-      comment syntax for the file format. We also recommend that a
-      file or class name and description of purpose be included on the
-      same "printed page" as the copyright notice for easier
-      identification within third-party archives.
+### 10. Term and Termination
 
-  Copyright 2025 Google LLC
+* **10.1. Term**: This Agreement shall commence on the Effective Date (contingent upon full execution by all Parties) and shall continue in effect [e.g., perpetually, unless terminated earlier as provided herein, or for a specific term of X years].
+* **10.2. Termination for Cause**: Either Licensors (acting jointly) or Licensee may terminate this Agreement upon written notice if the other Party materially breaches any provision of this Agreement and fails to cure such breach within [Number, e.g., thirty (30)] days after receiving written notice thereof from the non-breaching Party. Notice of breach by Licensors must be authorized by both URBOP, S.A. and Synergy Systems, S.A.
+* **10.3. Termination for Insolvency**: Either Licensors (acting jointly) or Licensee may terminate this Agreement immediately upon written notice if the other Party: (a) becomes insolvent; (b) makes a general assignment for the benefit of creditors; (c) files a voluntary petition of bankruptcy; (d) suffers or permits the appointment of a receiver for its business or assets; or (e) becomes subject to any proceeding under any bankruptcy or insolvency law which is not dismissed within sixty (60) days.
+* **10.4. Effect of Termination**: Upon termination or expiration of this Agreement for any reason:
+    * a) All license rights granted to Licensee hereunder shall immediately cease.
+    * b) Licensee shall immediately cease all use, reproduction, modification, and distribution of the Source Code.
+    * c) Licensee shall, within [Number, e.g., fifteen (15)] days after termination, destroy or return to Licensors (at Licensors' joint instruction) all copies of the Source Code and any Licensors' Confidential Information in its possession or control and certify in writing to both URBOP, S.A. and Synergy Systems, S.A. that it has complied with this obligation.
+    * d) Notwithstanding the foregoing, end-users who have obtained valid licenses to Licensed Product(s) prior to the effective date of termination may continue to use such Licensed Product(s) in accordance with their respective end-user license agreements, provided such Licensed Product(s) were distributed in object code form only.
+* **10.5. Survival**: The provisions of the Preamble, Sections 1 (Definitions), 3 (License Fee and Payment, for amounts accrued prior to termination), 4 (Intellectual Property Rights), 7.3 (Disclaimer of Warranties), 8 (Limitation of Liability), 9 (Indemnification), 10.4 (Effect of Termination), 10.5 (Survival), 11 (Confidentiality), and 12 (General Provisions) shall survive any termination or expiration of this Agreement.
 
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+### 11. Confidentiality
 
-       http://www.apache.org/licenses/LICENSE-2.0
+* **11.1. Definition**: "Confidential Information" means the Source Code, and any other non-public information disclosed by Licensors (or either URBOP, S.A. or Synergy Systems, S.A.) to Licensee, or by Licensee to Licensors, whether orally or in writing, that is designated as confidential or that reasonably should be understood to be confidential given the nature of the information and the circumstances of disclosure.
+* **11.2. Obligations**: The receiving Party agrees to: (a) use the disclosing Party's Confidential Information solely for the purposes of exercising its rights and performing its obligations under this Agreement; (b) not disclose such Confidential Information to any third party, except as expressly permitted herein or with the disclosing Party's prior written consent (if disclosing Party is "Licensors," consent from both URBOP, S.A. and Synergy Systems, S.A. is required); and (c) protect such Confidential Information from unauthorized use and disclosure using the same degree of care it uses to protect its own confidential information of like importance, but in no event less than a reasonable degree of care.
+* **11.3. Exceptions**: The obligations of confidentiality shall not apply to any information that: (a) is or becomes publicly known through no wrongful act of the receiving Party; (b) was rightfully known by the receiving Party prior to disclosure by the disclosing Party; (c) is independently developed by the receiving Party without use of or reference to the disclosing Party's Confidential Information; or (d) is rightfully received by the receiving Party from a third party without restriction and without breach of any confidentiality obligation.
+* **11.4. Compelled Disclosure**: If the receiving Party is compelled by law to disclose Confidential Information of the disclosing Party, it shall provide the disclosing Party with prior notice of such compelled disclosure (to the extent legally permitted) and reasonable assistance, at the disclosing Party's cost, if the disclosing Party wishes to contest the disclosure.
 
-   Unless required by applicable law or agreed to in writing, software
-   distributed under the License is distributed on an "AS IS" BASIS,
-   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-   See the License for the specific language governing permissions and
-   limitations under the License.
+### 12. General Provisions
+
+* **12.1. Entire Agreement**: This Agreement constitutes the entire agreement between the Parties with respect to the subject matter hereof and supersedes all prior and contemporaneous agreements, understandings, negotiations, and discussions, whether oral or written, of the Parties.
+* **12.2. Amendment**: No amendment, modification, or waiver of any provision of this Agreement shall be effective unless in writing and signed by authorized representatives of the Licensee and of both URBOP, S.A. and Synergy Systems, S.A.
+* **12.3. Governing Law and Jurisdiction**: This Agreement shall be governed by and construed in accordance with the laws of [Specify Jurisdiction, e.g., the Republic of Guatemala], without regard to its conflict of laws principles. The Parties hereby irrevocably consent to the exclusive jurisdiction of the courts located in [Specify City/Region, e.g., Guatemala City] for any dispute arising out of or relating to this Agreement.
+* **12.4. Notices**: All notices, requests, consents, claims, demands, waivers, and other communications hereunder shall be in writing and shall be deemed to have been given: (a) when delivered by hand (with written confirmation of receipt); (b) when received by the addressee if sent by a nationally recognized overnight courier (receipt requested); (c) on the date sent by facsimile or email (with confirmation of transmission) if sent during normal business hours of the recipient, and on the next business day if sent after normal business hours of the recipient; or (d) on the third day after the date mailed, by certified or registered mail, return receipt requested, postage prepaid. Such communications must be sent to the respective Parties at the addresses set forth below (or to such other address as may be designated by a Party from time to time in accordance with this section):
+
+    If to Licensors:
+    To URBOP, S.A.
+    Attn: [Contact Person/Department at URBOP]
+    [Address of URBOP, S.A.]
+    Email: [Email Address at URBOP]
+
+    AND
+
+    To Synergy Systems, S.A.
+    Attn: [Contact Person/Department at Synergy]
+    [Address of Synergy Systems, S.A.]
+    Email: [Email Address at Synergy]
+
+    If to Licensee:
+    Attn: [Contact Person/Department at Licensee]
+    [Licensee Address]
+    Email: [Licensee Email Address]
+
+* **12.5. Assignment**: Licensee may not assign or transfer any of its rights or delegate any of its obligations under this Agreement, in whole or in part, by operation of law or otherwise, without the prior written consent of both URBOP, S.A. and Synergy Systems, S.A. Licensors may assign this Agreement in its entirety (i.e., by both URBOP, S.A. and Synergy Systems, S.A. acting together) in connection with a merger, acquisition, or sale of all or substantially all of their joint assets related to the Source Code. Any purported assignment or delegation in violation of this section shall be null and void. Subject to the foregoing, this Agreement shall be binding upon and inure to the benefit of the Parties and their respective permitted successors and assigns.
+* **12.6. Severability**: If any provision of this Agreement is held to be invalid, illegal, or unenforceable by a court of competent jurisdiction, such provision shall be modified to the minimum extent necessary to make it valid, legal, and enforceable, or if such modification is not possible, then severed from this Agreement, and the remaining provisions shall continue in full force and effect.
+* **12.7. Waiver**: No waiver by any Party (or by Licensors, acting jointly) of any of the provisions hereof shall be effective unless explicitly set forth in writing and signed by the Party so waiving (and by both URBOP, S.A. and Synergy Systems, S.A. if the waiver is by Licensors). No failure to exercise, or delay in exercising, any right, remedy, power, or privilege arising from this Agreement shall operate or be construed as a waiver thereof.
+* **12.8. Force Majeure**: Neither Licensors (acting individually or jointly) nor Licensee shall be liable or responsible to the other Party, nor be deemed to have defaulted under or breached this Agreement, for any failure or delay in fulfilling or performing any term of this Agreement (except for any obligations to make payments), when and to the extent such failure or delay is caused by or results from acts beyond the affected Party's reasonable control.
+* **12.9. Relationship of Parties**: The relationship between Licensors and Licensee is that of independent contractors. Nothing contained in this Agreement shall be construed as creating any agency, partnership, joint venture, or other form of joint enterprise, employment, or fiduciary relationship between Licensors and Licensee.
+* **12.10. Headings**: The headings in this Agreement are for reference only and shall not affect the interpretation of this Agreement.
+* **12.11. Counterparts**: This Agreement may be executed in counterparts, including by facsimile or other electronic means, each of which shall be deemed an original, but all of which together shall constitute one and the same instrument. This Agreement is not effective until executed by authorized representatives of Licensee and of both URBOP, S.A. and Synergy Systems, S.A.
+
+**IN WITNESS WHEREOF**, the Parties hereto have caused this Agreement to be executed by their duly authorized representatives as of the Effective Date (provided, however, this Agreement shall only become effective upon signature by all named Parties below).
+
+**LICENSORS:**
+
+**URBOP, S.A.**
+
+By: 
+
+Name: MANUEL IGNACIO BASTERRRECHEA NUNEZ
+
+Title: PROJECT DIRECTOR
+
+Date: MAY 1, 2025
+
+**SYNERGY SYSTEMS, S.A.**
+
+By: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Name: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Title: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Date: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+**LICENSEE:**
+
+[Licensee Company Name/Licensee Name]
+
+By: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Name: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Title: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Date: \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+---

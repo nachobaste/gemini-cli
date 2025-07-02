@@ -51,6 +51,47 @@ If you need to use a specific model or require a higher request capacity, you ca
 
 For other authentication methods, including Google Workspace accounts, see the [authentication](./docs/cli/authentication.md) guide.
 
+## Development Setup
+
+To set up the project for local development, follow these steps:
+
+1.  **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/google-gemini/gemini-cli.git
+    cd gemini-cli
+    ```
+
+2.  **Install dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+3.  **Run the development server:**
+
+    ```bash
+    npm run dev
+    ```
+
+    This will start the Next.js development server. You can access the application in your browser at `http://localhost:3000`.
+
+## Testing
+
+This project uses **Jest** for testing. To run all tests, use the `test` command:
+
+```bash
+npm run test
+```
+
+To run the full suite of checks, including building, testing, type-checking, and linting, use the `preflight` command:
+
+```bash
+npm run preflight
+```
+
+This command ensures that your changes meet all the quality gates of the project.
+
 ## Examples
 
 Once the CLI is running, you can start interacting with Gemini from your shell.
@@ -79,6 +120,56 @@ gemini
 - If you encounter any issues, review the **[Troubleshooting guide](./docs/troubleshooting.md)**.
 - For more comprehensive documentation, see the [full documentation](./docs/index.md).
 - Take a look at some [popular tasks](#popular-tasks) for more inspiration.
+
+## Project Structure
+
+```
+.github/
+├── workflows/ # GitHub Actions workflows for CI/CD
+.next/
+├── cache/ # Next.js build cache
+├── server/ # Next.js server-side build output
+├── static/ # Static assets
+database/
+├── *.sql # SQL migration files
+docs/
+├── cli/ # CLI-specific documentation
+├── assets/ # Images and other assets for documentation
+├── core/ # Core concepts documentation
+├── tools/ # Documentation for available tools
+node_modules/ # Project dependencies
+scripts/
+├── *.js # Utility scripts (e.g., database setup, migrations)
+src/
+├── app/ # Next.js App Router pages and API routes
+├── lib/ # Utility functions and libraries
+├── styles/ # Global CSS and component-specific styles
+├── types/ # TypeScript type definitions
+.babelrc # Babel configuration
+.eslintrc.json # ESLint configuration
+.gitignore # Git ignore rules
+.npmrc # npm configuration
+.prettierignore # Prettier ignore rules
+.prettierrc.json # Prettier configuration
+CONTRIBUTING.md # Contribution guidelines
+GEMINI.md # Gemini-specific development notes
+jest.config.js # Jest test configuration
+jest.setup.js # Jest setup file
+LICENSE # Project license
+next-env.d.ts # Next.js environment type definitions
+next.config.js # Next.js configuration
+package-lock.json # npm dependency lock file
+package.json # Project metadata and scripts
+postcss.config.js # PostCSS configuration
+README.md # Project README
+tailwind.config.js # Tailwind CSS configuration
+tsconfig.json # TypeScript configuration
+
+```
+
+This structure provides a clear separation of concerns, making it easier to navigate and understand the codebase. Key directories include `src/app` for Next.js pages and API routes, `database` for SQL migrations, and `docs` for comprehensive documentation.
+
+
 
 ### Troubleshooting
 
