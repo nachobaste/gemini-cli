@@ -254,66 +254,66 @@ const PrintSummary: React.FC<PrintSummaryProps> = ({ project, mcdaScore, evaluat
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" />
     </head>
     <body>
-        <div class="page-container">
-            <header class="report-header">
+        <div className="page-container">
+            <header className="report-header">
                 <h1>Project Summary: {project.name}</h1>
             </header>
 
-            <section class="section mcda-summary">
+            <section className="section mcda-summary">
                 <h2>MCDA Score Overview</h2>
-                <div class="score-overview">
-                    <span class="overall-score">Overall GEOCUBO Score: {mcdaScore !== null ? mcdaScore.toFixed(1) : 'N/A'}</span>
+                <div className="score-overview">
+                    <span className="overall-score">Overall GEOCUBO Score: {mcdaScore !== null ? mcdaScore.toFixed(1) : 'N/A'}</span>
                     <span class={`score-indicator ${getScoreColorClass(mcdaScore)}`}></span>
                 </div>
                 
                 <h3>Category Scores</h3>
-                <div class="bar-chart-container">
+                <div className="bar-chart-container">
                     {categoryScores.map((cat, index) => (
-                        <div class="score-card" key={index}>
-                            <div class="bar" style={{ height: `${cat.score !== null ? (cat.score / 10) * 100 : 0}%`, backgroundColor: getCategoryScoreColor(cat.score) }}></div>
-                            <span class="score-card-label">{cat.name} ({cat.score !== null ? cat.score.toFixed(1) : 'N/A'})</span>
+                        <div className="score-card" key={index}>
+                            <div className="bar" style={{ height: `${cat.score !== null ? (cat.score / 10) * 100 : 0}%`, backgroundColor: getCategoryScoreColor(cat.score) }}></div>
+                            <span className="score-card-label">{cat.name} ({cat.score !== null ? cat.score.toFixed(1) : 'N/A'})</span>
                         </div>
                     ))}
                 </div>
             </section>
 
-            <section class="section bmc-section">
+            <section className="section bmc-section">
                 <h2>Business Model Canvas</h2>
                 {bmc ? (
-                    <div class="bmc-grid">
-                        <div class="bmc-item">
+                    <div className="bmc-grid">
+                        <div className="bmc-item">
                             <h3>Key Partners</h3>
                             <p>{bmc.key_partners || 'N/A'}</p>
                         </div>
-                        <div class="bmc-item">
+                        <div className="bmc-item">
                             <h3>Key Activities</h3>
                             <p>{bmc.key_activities || 'N/A'}</p>
                         </div>
-                        <div class="bmc-item">
+                        <div className="bmc-item">
                             <h3>Key Resources</h3>
                             <p>{bmc.key_resources || 'N/A'}</p>
                         </div>
-                        <div class="bmc-item">
+                        <div className="bmc-item">
                             <h3>Value Propositions</h3>
                             <p>{bmc.value_proposition || 'N/A'}</p>
                         </div>
-                        <div class="bmc-item">
+                        <div className="bmc-item">
                             <h3>Customer Relationships</h3>
                             <p>{bmc.customer_relationships || 'N/A'}</p>
                         </div>
-                        <div class="bmc-item">
+                        <div className="bmc-item">
                             <h3>Customer Segments</h3>
                             <p>{bmc.customer_segments || 'N/A'}</p>
                         </div>
-                        <div class="bmc-item">
+                        <div className="bmc-item">
                             <h3>Channels</h3>
                             <p>{bmc.channels || 'N/A'}</p>
                         </div>
-                        <div class="bmc-item">
+                        <div className="bmc-item">
                             <h3>Cost Structure</h3>
                             <p>{bmc.cost_structure || 'N/A'}</p>
                         </div>
-                        <div class="bmc-item">
+                        <div className="bmc-item">
                             <h3>Revenue Streams</h3>
                             <p>{bmc.revenue_streams || 'N/A'}</p>
                         </div>
@@ -323,7 +323,7 @@ const PrintSummary: React.FC<PrintSummaryProps> = ({ project, mcdaScore, evaluat
                 )}
             </section>
 
-            <footer class="report-footer">
+            <footer className="report-footer">
                 <span>Generated by GEOCUBO</span>
                 <span>Date: {new Date().toLocaleDateString()}</span>
             </footer>
