@@ -4,10 +4,13 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { DatabaseService } from '../../lib/supabase';
 import { Project } from '@/types';
+import KanbanView from './KanbanView'; // Import the KanbanView component
 
 const ProjectsPage = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [viewMode, setViewMode] = useState<'list' | 'kanban'>('list'); // New state for view mode
+  const [groupBy, setGroupBy] = useState<'status' | 'asset_class'>('status'); // New state for group by
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -45,9 +48,39 @@ const ProjectsPage = () => {
     <div className="container-urbop py-12">
       <div className="flex items-center justify-between mb-8">
         <h1 className="section-title">Proyectos</h1>
-        <Link href="/projects/new" className="btn btn-primary">
-          Nuevo Proyecto
-        </Link>
+        <div className="flex space-x-4">
+          {/* View Mode Toggle */}
+          <div className="flex items-center space-x-2">
+            <button
+              className={`btn ${viewMode === 'list' ? 'btn-primary' : 'btn-outline'}`}
+              onClick={() => setViewMode('list')}
+            >
+              Lista
+            </button>
+            <button
+              className={`btn ${viewMode === 'kanban' ? 'btn-primary' : 'btn-outline'}`}
+              onClick={() => setViewMode('kanban')}
+            >
+              Kanban
+            </button>
+          </div>
+
+          {/* Group By Selector (only for Kanban view) */}
+          {viewMode === 'kanban' && (
+            <select
+              value={groupBy}
+              onChange={(e) => setGroupBy(e.target.value as 'status' | 'asset_class')}
+              className="p-2 border rounded-md"
+            >
+              <option value="status">Agrupar por Estado</option>
+              <option value="asset_class">Agrupar por Clase de Activo</option>
+            </select>
+          )}
+
+          <Link href="/projects/new" className="btn btn-primary">
+            Nuevo Proyecto
+          </Link>
+        </div>
       </div>
 
       {loading ? (
@@ -62,7 +95,7 @@ const ProjectsPage = () => {
             </div>
           ))}
         </div>
-      ) : (
+      ) : viewMode === 'list' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
             <Link key={project.id} href={`/projects/${project.id}`}>
@@ -84,6 +117,8 @@ const ProjectsPage = () => {
             </Link>
           ))}
         </div>
+      ) : (
+        <KanbanView projects={projects} groupBy={groupBy} />
       )}
     </div>
   );
