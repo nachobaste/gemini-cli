@@ -39,6 +39,8 @@ const MapPage = () => {
   const [filters, setFilters] = useState({
     viewMode: 'map',
     layers: { projects: true, clusters: true, heatmap: false, municipalities: false, roads: false, population: false },
+    assetClass: '', // New filter state
+    developmentCategory: '', // New filter state
   });
   const [selectedProject, setSelectedProject] = useState(null);
   const [compareMode, setCompareMode] = useState(false);
@@ -48,7 +50,7 @@ const MapPage = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const data = await DatabaseService.getProjects();
+        const data = await DatabaseService.getProjects(filters.assetClass, filters.developmentCategory);
         setProjects(data as Project[]);
       } catch (error) {
         console.error('Error fetching projects:', error);
@@ -58,7 +60,7 @@ const MapPage = () => {
     };
 
     fetchProjects();
-  }, []);
+  }, [filters.assetClass, filters.developmentCategory]); // Add new filters to dependency array
 
   const handleProjectSelect = (project: any) => {
     setSelectedProject(project);
@@ -85,7 +87,42 @@ const MapPage = () => {
       {/* Sidebar */}
       <div className="w-80 bg-white p-6 overflow-y-auto shadow-lg">
         <h2 className="text-2xl font-bold mb-6">Filtros</h2>
-        {/* Add filter controls here */}
+        
+        <div className="mb-4">
+          <label htmlFor="assetClassFilter" className="block text-sm font-medium text-gray-700 mb-1">Clase de Activo</label>
+          <select
+            id="assetClassFilter"
+            value={filters.assetClass}
+            onChange={e => setFilters({ ...filters, assetClass: e.target.value })}
+            className="w-full p-2 border rounded-md"
+          >
+            <option value="">Todas</option>
+            <option value="residential">Residencial</option>
+            <option value="commercial">Comercial</option>
+            <option value="mixed_use">Uso Mixto</option>
+            <option value="industrial">Industrial</option>
+            <option value="office">Oficina</option>
+            <option value="retail">Minorista</option>
+            <option value="hospitality">Hostelería</option>
+          </select>
+        </div>
+
+        <div className="mb-4">
+          <label htmlFor="developmentCategoryFilter" className="block text-sm font-medium text-gray-700 mb-1">Categoría de Desarrollo</label>
+          <select
+            id="developmentCategoryFilter"
+            value={filters.developmentCategory}
+            onChange={e => setFilters({ ...filters, developmentCategory: e.target.value })}
+            className="w-full p-2 border rounded-md"
+          >
+            <option value="">Todas</option>
+            <option value="land_development">Desarrollo de Suelo</option>
+            <option value="land_packaging">Empaquetado de Suelo</option>
+            <option value="land_banking">Banco de Tierras</option>
+            <option value="real_estate_development">Desarrollo Inmobiliario</option>
+            <option value="real_estate_operator">Operador Inmobiliario</option>
+          </select>
+        </div>
         
         <div className="mt-8">
           <h3 className="font-semibold mb-4">Capas del Mapa</h3>

@@ -32,11 +32,21 @@ const parsePoint = (point: any): { x: number; y: number } | undefined => {
 // Database service functions
 export class DatabaseService {
   // Projects
-  static async getProjects() {
-    const { data, error } = await supabase
+  static async getProjects(assetClass?: string, developmentCategory?: string) {
+    let query = supabase
       .from('projects')
-      .select('*, mcda_evaluations(*, mcda_parameters(*))') // Select evaluations and parameters
-      .order('created_at', { ascending: false })
+      .select('*, mcda_evaluations(*, mcda_parameters(*))')
+      .order('created_at', { ascending: false });
+
+    if (assetClass) {
+      query = query.eq('asset_class', assetClass);
+    }
+
+    if (developmentCategory) {
+      query = query.eq('development_category', developmentCategory);
+    }
+
+    const { data, error } = await query;
     
     if (error) throw error
 
