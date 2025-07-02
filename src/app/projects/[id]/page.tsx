@@ -492,6 +492,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                       
                       <div className="space-y-4">
                         <Link href={`/projects/${id}/edit`} className="btn btn-primary w-full text-center">Editar Proyecto</Link>
+                        <Link href={`/projects/${id}/mcda/edit`} className="btn btn-secondary w-full text-center">Editar Evaluaciones MCDA</Link>
                         <button className="btn btn-secondary w-full">Generar Reporte</button>
                         <button className="btn btn-outline w-full">Compartir</button>
                       </div>
