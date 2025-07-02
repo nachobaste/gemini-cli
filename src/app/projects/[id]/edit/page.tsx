@@ -132,6 +132,16 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
               <option value="hospitality">Hostelería</option>
             </select>
           </div>
+          <div>
+            <label htmlFor="development_category" className="block text-sm font-medium text-gray-700">Categoría de Desarrollo</label>
+            <select id="development_category" name="development_category" value={formData.development_category || ''} onChange={handleChange} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-lime-500 focus:ring-lime-500">
+              <option value="land_development">Desarrollo de Suelo</option>
+              <option value="land_packaging">Empaquetado de Suelo</option>
+              <option value="land_banking">Banco de Tierras</option>
+              <option value="real_estate_development">Desarrollo Inmobiliario</option>
+              <option value="real_estate_operator">Operador Inmobiliario</option>
+            </select>
+          </div>
 
           {/* Numerical Data */}
           <div>

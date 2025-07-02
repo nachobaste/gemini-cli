@@ -9,28 +9,54 @@ export default function EditBMCPage({ params }: { params: { id: string } }) {
   const { id } = params;
   const router = useRouter();
   const [bmc, setBmc] = useState<Partial<BusinessModelCanvas>>({});
+  const [bmcTemplates, setBmcTemplates] = useState<BusinessModelCanvas[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchBmc = async () => {
+    const fetchData = async () => {
       try {
-        const existingBmc = await DatabaseService.getBMC(id);
+        const [existingBmc, templates] = await Promise.all([
+          DatabaseService.getBMC(id),
+          DatabaseService.getBMCTemplates(),
+        ]);
+
         if (existingBmc) {
           setBmc(existingBmc);
         }
+        setBmcTemplates(templates);
       } catch (error) {
-        console.error('Error fetching BMC data:', error);
+        console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchBmc();
+    fetchData();
   }, [id]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setBmc((prevBmc) => ({ ...prevBmc, [name]: value }));
+  };
+
+  const handleTemplateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedAssetClass = e.target.value;
+    const template = bmcTemplates.find(t => t.asset_class === selectedAssetClass);
+    if (template) {
+      setBmc(prevBmc => ({
+        id: prevBmc.id,
+        project_id: prevBmc.project_id,
+        value_proposition: template.value_proposition,
+        customer_segments: template.customer_segments,
+        channels: template.channels,
+        customer_relationships: template.customer_relationships,
+        revenue_streams: template.revenue_streams,
+        key_resources: template.key_resources,
+        key_activities: template.key_activities,
+        key_partners: template.key_partners,
+        cost_structure: template.cost_structure,
+      }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -49,7 +75,25 @@ export default function EditBMCPage({ params }: { params: { id: string } }) {
 
   return (
     <div className="container-urbop py-12">
-      <h1 className="section-title">Editar Business Model Canvas</h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="section-title">Editar Business Model Canvas</h1>
+        <div>
+          <label htmlFor="bmc-template" className="block text-gray-400 text-sm mb-1">Cargar plantilla</label>
+          <select
+            id="bmc-template"
+            onChange={handleTemplateChange}
+            className="select select-bordered w-full max-w-xs"
+            defaultValue=""
+          >
+            <option value="" disabled>Seleccionar plantilla...</option>
+            {bmcTemplates.map((template) => (
+              <option key={template.id} value={template.asset_class}>
+                {template.asset_class}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
       <form onSubmit={handleSubmit} className="space-y-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>

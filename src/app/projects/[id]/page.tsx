@@ -244,6 +244,10 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
                             <label className="block text-gray-400 text-sm mb-1">Tipo de Proyecto</label>
                             <div className="text-white">{project.asset_class}</div>
                           </div>
+                          <div className="mb-4">
+                            <label className="block text-gray-400 text-sm mb-1">Categoría de Desarrollo</label>
+                            <div className="text-white">{project.development_category}</div>
+                          </div>
                           
                           <div className="mb-4">
                             <label className="block text-gray-400 text-sm mb-1">Área Total (m²)</label>

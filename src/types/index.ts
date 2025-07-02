@@ -1,5 +1,7 @@
 // Type definitions for GEOCUBO application
 
+export type DevelopmentCategory = 'land_development' | 'land_packaging' | 'land_banking' | 'real_estate_development' | 'real_estate_operator';
+
 export interface Project {
   id: string;
   name: string;
@@ -11,6 +13,7 @@ export interface Project {
   };
   status: ProjectStatus;
   asset_class: AssetClass;
+  development_category?: DevelopmentCategory;
   budget?: number;
   area_total?: number;
   units_count?: number;
@@ -57,6 +60,7 @@ export interface MCDAEvaluationWithDetails extends MCDAEvaluation {
 export interface BusinessModelCanvas {
   id?: string;
   project_id: string;
+  asset_class?: string;
   value_proposition?: string;
   customer_segments?: string;
   channels?: string;
