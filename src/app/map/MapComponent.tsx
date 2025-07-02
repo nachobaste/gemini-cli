@@ -433,7 +433,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
               ${
                 compareMode
                   ? `
-                <button onclick="window.addToComparison && window.addToComparison(${project.id})" style="
+                <button id="compare-button-${project.id}" style="
                   background: #3b82f6;
                   color: white;
                   padding: 8px 12px;
@@ -456,6 +456,17 @@ const MapComponent: React.FC<MapComponentProps> = ({
         marker.bindPopup(popupContent, {
           maxWidth: 300,
           className: 'custom-popup',
+        });
+
+        marker.on('popupopen', () => {
+          if (compareMode && onAddToComparison) {
+            const compareButton = document.getElementById(`compare-button-${project.id}`);
+            if (compareButton) {
+              compareButton.onclick = () => {
+                onAddToComparison(project);
+              };
+            }
+          }
         });
 
         // Add to cluster group if clustering is enabled
@@ -601,15 +612,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
       });
     }
 
-    // Set up global function for popup comparison button
-    if (compareMode && onAddToComparison) {
-      (window as any).addToComparison = (projectId: number) => {
-        const project = projects.find((p) => p.id === projectId);
-        if (project) {
-          onAddToComparison(project);
-        }
-      };
-    }
+    
   }, [
     projects,
     filters,

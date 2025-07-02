@@ -1,6 +1,7 @@
 const { Client } = require('pg');
 const fs = require('fs');
 const path = require('path');
+require('dotenv').config({ path: path.resolve(process.cwd(), '.env.local') });
 
 const runMigration = async () => {
   const migrationFile = process.argv[2];
@@ -9,26 +10,14 @@ const runMigration = async () => {
     process.exit(1);
   }
 
-  let dbUrl;
-  try {
-    const envFile = fs.readFileSync(path.resolve(process.cwd(), '.env.local'), 'utf8');
-    const match = envFile.match(/^DATABASE_URL=(.*)$/m);
-    if (match && match[1]) {
-      dbUrl = match[1];
-    } else {
-      throw new Error('DATABASE_URL not found in .env.local');
-    }
-  } catch (err) {
-    console.error('Error reading .env.local file:', err);
-    process.exit(1);
-  }
-
   const client = new Client({
-    connectionString: dbUrl,
+    connectionString: process.env.DATABASE_URL,
   });
 
   try {
+    console.log(`Attempting to connect to the database...`);
     await client.connect();
+    console.log('Database connection successful.');
     const sql = fs.readFileSync(path.join(__dirname, '../database', migrationFile), 'utf8');
     await client.query(sql);
     console.log(`Migration ${migrationFile} successful!`);

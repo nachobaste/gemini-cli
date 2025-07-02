@@ -35,14 +35,21 @@ export class DatabaseService {
   static async getProjects() {
     const { data, error } = await supabase
       .from('projects')
-      .select('*')
+      .select('*, mcda_evaluations(*, mcda_parameters(*))') // Select evaluations and parameters
       .order('created_at', { ascending: false })
     
     if (error) throw error
-    return data.map(p => ({
-      ...p,
-      coordinates: parsePoint(p.coordinates) // Parse coordinates here
-    })) as Project[]
+
+    const projectsWithScores = await Promise.all(data.map(async (p) => {
+      const score = await DatabaseService.calculateMCDAScore(p.id);
+      return {
+        ...p,
+        coordinates: parsePoint(p.coordinates),
+        mcda_score: score, // Add the calculated MCDA score
+      };
+    }));
+
+    return projectsWithScores as Project[];
   }
 
   static async getProject(id: string) {
