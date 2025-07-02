@@ -118,7 +118,7 @@ const ProjectsPage = () => {
           ))}
         </div>
       ) : (
-        <KanbanView projects={projects} groupBy={groupBy} />
+        <KanbanView projects={projects} groupBy={groupBy} onProjectUpdated={fetchProjects} />
       )}
     </div>
   );
