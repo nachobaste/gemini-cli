@@ -7,6 +7,32 @@ import { MCDAParameter } from '@/types';
 const ConfigPage = () => {
   const [parameters, setParameters] = useState<MCDAParameter[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
+
+  const handleWeightChange = (id: string, newWeight: number) => {
+    setParameters(prevParams =>
+      prevParams.map(param =>
+        param.id === id ? { ...param, weight: newWeight } : param
+      )
+    );
+  };
+
+  const saveParameters = async () => {
+    setIsSaving(true);
+    setSaveError(null);
+    try {
+      // Assuming an update method exists in DatabaseService
+      // This will need to be implemented in supabase.ts
+      await DatabaseService.updateMCDAParameters(parameters);
+      alert('Parámetros guardados exitosamente!');
+    } catch (error) {
+      console.error('Error saving parameters:', error);
+      setSaveError('Error al guardar los parámetros. Por favor, inténtalo de nuevo.');
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   useEffect(() => {
     const fetchParameters = async () => {
@@ -43,7 +69,8 @@ const ConfigPage = () => {
                     type="range"
                     min={param.min_value}
                     max={param.max_value}
-                    defaultValue={param.weight}
+                    value={param.weight}
+                    onChange={(e) => handleWeightChange(param.id, parseFloat(e.target.value))}
                     className="w-full slider"
                   />
                 </div>
@@ -51,7 +78,14 @@ const ConfigPage = () => {
             ))}
           </div>
           <div className="mt-8 text-right">
-            <button className="btn btn-primary">Guardar Cambios</button>
+            {saveError && <p className="text-red-500 mb-2">{saveError}</p>}
+            <button
+              className="btn btn-primary"
+              onClick={saveParameters}
+              disabled={isSaving}
+            >
+              {isSaving ? 'Guardando...' : 'Guardar Cambios'}
+            </button>
           </div>
         </div>
       )}

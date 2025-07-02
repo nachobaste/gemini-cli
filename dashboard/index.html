@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opportunity Pipeline Dashboard</title>
+    <link href="./src/output.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <div id="app" class="min-h-screen flex flex-col">
+        <!-- Filters -->
+        <header class="bg-white shadow p-4 flex flex-wrap items-center justify-between">
+            <h1 class="text-2xl font-bold text-gray-800 mb-4 md:mb-0">Opportunity Pipeline</h1>
+            <div class="flex flex-wrap gap-2">
+                <select id="country-filter" class="p-2 border rounded-md">
+                    <option value="all">All Countries</option>
+                </select>
+                <select id="asset-class-filter" class="p-2 border rounded-md">
+                    <option value="all">All Asset Classes</option>
+                </select>
+                <select id="team-member-filter" class="p-2 border rounded-md">
+                    <option value="all">All Team Members</option>
+                </select>
+            </div>
+        </header>
+
+        <!-- Kanban Board -->
+        <main class="flex-1 p-4 overflow-auto">
+            <div id="kanban-board" class="grid grid-cols-1 md:grid-cols-4 gap-4 h-full">
+                <!-- New Opportunities Column -->
+                <div class="kanban-column bg-gray-200 rounded-lg p-3 shadow-md" data-status="new-opportunities">
+                    <h2 class="text-lg font-semibold mb-3 flex justify-between items-center">
+                        New Opportunities
+                        <button id="quick-add-button" class="bg-blue-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xl leading-none">+</button>
+                    </h2>
+                    <div class="kanban-cards space-y-3 min-h-[100px]"></div>
+                </div>
+
+                <!-- Initial Screening Column -->
+                <div class="kanban-column bg-gray-200 rounded-lg p-3 shadow-md" data-status="initial-screening">
+                    <h2 class="text-lg font-semibold mb-3">Initial Screening</h2>
+                    <div class="kanban-cards space-y-3 min-h-[100px]"></div>
+                </div>
+
+                <!-- Detailed Analysis Column -->
+                <div class="kanban-column bg-gray-200 rounded-lg p-3 shadow-md" data-status="detailed-analysis">
+                    <h2 class="text-lg font-semibold mb-3">Detailed Analysis</h2>
+                    <div class="kanban-cards space-y-3 min-h-[100px]"></div>
+                </div>
+
+                <!-- Due Diligence Column -->
+                <div class="kanban-column bg-gray-200 rounded-lg p-3 shadow-md" data-status="due-diligence">
+                    <h2 class="text-lg font-semibold mb-3">Due Diligence</h2>
+                    <div class="kanban-cards space-y-3 min-h-[100px]"></div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Modals -->
+        <!-- Quick Add Modal -->
+        <div id="quick-add-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-1/3">
+                <h3 class="text-xl font-bold mb-4">Add New Opportunity</h3>
+                <form id="quick-add-form">
+                    <div class="mb-4">
+                        <label for="project-name" class="block text-gray-700 text-sm font-bold mb-2">Project Name:</label>
+                        <input type="text" id="project-name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="project-location" class="block text-gray-700 text-sm font-bold mb-2">Location:</label>
+                        <input type="text" id="project-location" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="project-size" class="block text-gray-700 text-sm font-bold mb-2">Size (sqm):</label>
+                        <input type="number" id="project-size" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                    </div>
+                    <div class="flex justify-end">
+                        <button type="button" id="cancel-add" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md mr-2">Cancel</button>
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md">Add Project</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Detailed View Modal -->
+        <div id="detail-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden items-center justify-center">
+            <div class="bg-white p-6 rounded-lg shadow-lg w-1/2">
+                <h3 id="detail-project-name" class="text-xl font-bold mb-4"></h3>
+                <p id="detail-asset-country" class="text-gray-600 mb-2"></p>
+                <p id="detail-geocubo-score" class="text-gray-600 mb-4"></p>
+                
+                <div class="mb-4">
+                    <label for="assign-team-member" class="block text-gray-700 text-sm font-bold mb-2">Assign Team Member:</label>
+                    <select id="assign-team-member" class="p-2 border rounded-md w-full">
+                        <!-- Options will be populated by JS -->
+                    </select>
+                </div>
+
+                <div class="mb-4">
+                    <h4 class="text-lg font-semibold mb-2">Comments:</h4>
+                    <div id="comments-section" class="border p-3 rounded-md h-32 overflow-y-auto mb-3"></div>
+                    <textarea id="new-comment" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="2" placeholder="Add a comment..."></textarea>
+                    <button id="post-comment" class="bg-blue-500 text-white px-4 py-2 rounded-md mt-2">Post Comment</button>
+                </div>
+
+                <div class="flex justify-end">
+                    <button type="button" id="close-detail-modal" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-md">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/Users/natxo/Documents/GitHub/gemini-cli/dashboard/src/main.js"></script>
+</body>
+</html>

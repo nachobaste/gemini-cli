@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { DatabaseService } from '../../lib/supabase';
 import { Project } from '@/types';
@@ -12,20 +12,20 @@ const ProjectsPage = () => {
   const [viewMode, setViewMode] = useState<'list' | 'kanban'>('list'); // New state for view mode
   const [groupBy, setGroupBy] = useState<'status' | 'asset_class'>('status'); // New state for group by
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const data = await DatabaseService.getProjects();
-        setProjects(data as Project[]);
-      } catch (error) {
-        console.error('Error fetching projects:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProjects();
+  const fetchProjects = useCallback(async () => {
+    try {
+      const data = await DatabaseService.getProjects();
+      setProjects(data as Project[]);
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchProjects();
+  }, [fetchProjects]);
 
   const getStatusColor = (status: string) => {
     switch (status?.toLowerCase()) {

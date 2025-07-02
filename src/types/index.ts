@@ -19,6 +19,7 @@ export interface Project {
   units_count?: number;
   floors_count?: number;
   mcda_score?: number; // Added mcda_score
+  comments?: { author: string; text: string; timestamp: string }[]; // Added for Kanban board
   created_at: string;
   updated_at: string;
   created_by?: string;

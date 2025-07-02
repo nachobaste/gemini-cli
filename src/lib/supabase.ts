@@ -130,6 +130,21 @@ export class DatabaseService {
     return data
   }
 
+  static async updateMCDAParameters(parameters: MCDAParameter[]) {
+    const updates = parameters.map(param => ({
+      id: param.id,
+      weight: param.weight,
+    }));
+
+    const { data, error } = await supabase
+      .from('mcda_parameters')
+      .upsert(updates, { onConflict: 'id' })
+      .select();
+
+    if (error) throw error;
+    return data as MCDAParameter[];
+  }
+
   // MCDA Evaluations
   static async getProjectEvaluations(projectId: string) {
     const { data, error } = await supabase
