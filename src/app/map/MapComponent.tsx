@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
@@ -41,22 +41,23 @@ const MapComponent: React.FC<MapComponentProps> = ({
   const [mapLoaded, setMapLoaded] = useState(false);
 
   // Custom asset class icons
-  const createCustomIcon = (project: any) => {
-    const isSelected = selectedForComparison.find((p) => p.id === project.id);
-    const iconSize = isSelected ? 50 : 40;
-    const fontSize = isSelected ? 14 : 12;
+  const createCustomIcon = useCallback(
+    (project: any) => {
+      const isSelected = selectedForComparison.find((p) => p.id === project.id);
+      const iconSize = isSelected ? 50 : 40;
+      const fontSize = isSelected ? 14 : 12;
 
-    const assetClassIcons: { [key: string]: string } = {
-      Residencial: '🏠',
-      Comercial: '🏢',
-      Oficinas: '🏬',
-      Mixto: '🏘️',
-      Industrial: '🏭',
-    };
+      const assetClassIcons: { [key: string]: string } = {
+        Residencial: '🏠',
+        Comercial: '🏢',
+        Oficinas: '🏬',
+        Mixto: '🏘️',
+        Industrial: '🏭',
+      };
 
-    return L.divIcon({
-      className: 'custom-marker',
-      html: `
+      return L.divIcon({
+        className: 'custom-marker',
+        html: `
         <div class="marker-container" style="position: relative;">
           <div class="marker-pin" style="
             width: ${iconSize}px;
@@ -125,10 +126,12 @@ const MapComponent: React.FC<MapComponentProps> = ({
           }
         </div>
       `,
-      iconSize: [iconSize, iconSize],
-      iconAnchor: [iconSize / 2, iconSize / 2],
-    });
-  };
+        iconSize: [iconSize, iconSize],
+        iconAnchor: [iconSize / 2, iconSize / 2],
+      });
+    },
+    [selectedForComparison],
+  );
 
   // Initialize map
   useEffect(() => {
@@ -621,6 +624,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
     onAddToComparison,
     selectedForComparison,
     mapLoaded,
+    createCustomIcon,
   ]);
 
   return (
