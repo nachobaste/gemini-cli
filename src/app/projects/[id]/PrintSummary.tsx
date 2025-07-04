@@ -1,6 +1,3 @@
-'use client';
-
-import React from 'react';
 import { Project, MCDAEvaluationWithDetails, BusinessModelCanvas } from '@/types';
 
 interface PrintSummaryProps {
@@ -10,7 +7,7 @@ interface PrintSummaryProps {
   bmc: BusinessModelCanvas | null;
 }
 
-const PrintSummary: React.FC<PrintSummaryProps> = ({ project, mcdaScore, evaluations, bmc }) => {
+const generatePrintSummaryHtml = ({ project, mcdaScore, evaluations, bmc }: PrintSummaryProps): string => {
   const getScoreColorClass = (score: number | null) => {
     if (score === null) return 'score-gray';
     if (score > 7.5) return 'score-green';
@@ -45,13 +42,15 @@ const PrintSummary: React.FC<PrintSummaryProps> = ({ project, mcdaScore, evaluat
     score: getCategoryAverage(categoryName),
   }));
 
-  return (
+  return `
+    <!DOCTYPE html>
     <html lang="en">
     <head>
-        <meta charSet="UTF-8" />
+        <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Project Summary Report</title>
-        <style>{`
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap">
+        <style>
             @page {
                 size: A4 portrait;
                 margin: 1.5cm;
@@ -250,87 +249,87 @@ const PrintSummary: React.FC<PrintSummaryProps> = ({ project, mcdaScore, evaluat
                     border-top: 1px solid #eee;
                 }
             }
-        `}</style>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" />
+        </style>
     </head>
     <body>
-        <div className="page-container">
-            <header className="report-header">
-                <h1>Project Summary: {project.name}</h1>
+        <div class="page-container">
+            <header class="report-header">
+                <h1>Project Summary: ${project.name}</h1>
             </header>
 
-            <section className="section mcda-summary">
+            <section class="section mcda-summary">
                 <h2>MCDA Score Overview</h2>
-                <div className="score-overview">
-                    <span className="overall-score">Overall GEOCUBO Score: {mcdaScore !== null ? mcdaScore.toFixed(1) : 'N/A'}</span>
-                    <span class={`score-indicator ${getScoreColorClass(mcdaScore)}`}></span>
+                <div class="score-overview">
+                    <span class="overall-score">Overall GEOCUBO Score: ${mcdaScore !== null ? mcdaScore.toFixed(1) : 'N/A'}</span>
+                    <span class="score-indicator ${getScoreColorClass(mcdaScore)}"></span>
                 </div>
                 
                 <h3>Category Scores</h3>
-                <div className="bar-chart-container">
-                    {categoryScores.map((cat, index) => (
-                        <div className="score-card" key={index}>
-                            <div className="bar" style={{ height: `${cat.score !== null ? (cat.score / 10) * 100 : 0}%`, backgroundColor: getCategoryScoreColor(cat.score) }}></div>
-                            <span className="score-card-label">{cat.name} ({cat.score !== null ? cat.score.toFixed(1) : 'N/A'})</span>
-                        </div>
-                    ))}
+                <div class="bar-chart-container">
+                    ${categoryScores.map((cat, index) => {
+                        const catScore = getCategoryAverage(cat.name);
+                        return `
+                            <div class="score-card">
+                                <div class="bar" style="height: ${catScore !== null ? (catScore / 10) * 100 : 0}%; background-color: ${getCategoryScoreColor(catScore)};"></div>
+                                <span class="score-card-label">${cat.name} (${catScore !== null ? catScore.toFixed(1) : 'N/A'})</span>
+                            </div>
+                        `;
+                    }).join('')}
                 </div>
             </section>
 
-            <section className="section bmc-section">
+            <section class="section bmc-section">
                 <h2>Business Model Canvas</h2>
-                {bmc ? (
-                    <div className="bmc-grid">
-                        <div className="bmc-item">
+                ${bmc ? `
+                    <div class="bmc-grid">
+                        <div class="bmc-item">
                             <h3>Key Partners</h3>
-                            <p>{bmc.key_partners || 'N/A'}</p>
+                            <p>${bmc.key_partners || 'N/A'}</p>
                         </div>
-                        <div className="bmc-item">
+                        <div class="bmc-item">
                             <h3>Key Activities</h3>
-                            <p>{bmc.key_activities || 'N/A'}</p>
+                            <p>${bmc.key_activities || 'N/A'}</p>
                         </div>
-                        <div className="bmc-item">
+                        <div class="bmc-item">
                             <h3>Key Resources</h3>
-                            <p>{bmc.key_resources || 'N/A'}</p>
+                            <p>${bmc.key_resources || 'N/A'}</p>
                         </div>
-                        <div className="bmc-item">
+                        <div class="bmc-item">
                             <h3>Value Propositions</h3>
-                            <p>{bmc.value_proposition || 'N/A'}</p>
+                            <p>${bmc.value_proposition || 'N/A'}</p>
                         </div>
-                        <div className="bmc-item">
+                        <div class="bmc-item">
                             <h3>Customer Relationships</h3>
-                            <p>{bmc.customer_relationships || 'N/A'}</p>
+                            <p>${bmc.customer_relationships || 'N/A'}</p>
                         </div>
-                        <div className="bmc-item">
+                        <div class="bmc-item">
                             <h3>Customer Segments</h3>
-                            <p>{bmc.customer_segments || 'N/A'}</p>
+                            <p>${bmc.customer_segments || 'N/A'}</p>
                         </div>
-                        <div className="bmc-item">
+                        <div class="bmc-item">
                             <h3>Channels</h3>
-                            <p>{bmc.channels || 'N/A'}</p>
+                            <p>${bmc.channels || 'N/A'}</p>
                         </div>
-                        <div className="bmc-item">
+                        <div class="bmc-item">
                             <h3>Cost Structure</h3>
-                            <p>{bmc.cost_structure || 'N/A'}</p>
+                            <p>${bmc.cost_structure || 'N/A'}</p>
                         </div>
-                        <div className="bmc-item">
+                        <div class="bmc-item">
                             <h3>Revenue Streams</h3>
-                            <p>{bmc.revenue_streams || 'N/A'}</p>
+                            <p>${bmc.revenue_streams || 'N/A'}</p>
                         </div>
                     </div>
-                ) : (
-                    <p>No Business Model Canvas data available for this project.</p>
-                )}
+                ` : '<p>No Business Model Canvas data available for this project.</p>'}
             </section>
 
-            <footer className="report-footer">
+            <footer class="report-footer">
                 <span>Generated by GEOCUBO</span>
-                <span>Date: {new Date().toLocaleDateString()}</span>
+                <span>Date: ${new Date().toLocaleDateString()}</span>
             </footer>
         </div>
     </body>
     </html>
-  );
+  `;
 };
 
-export default PrintSummary;
+export default generatePrintSummaryHtml;
