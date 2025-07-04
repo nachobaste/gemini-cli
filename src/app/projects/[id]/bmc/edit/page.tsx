@@ -92,9 +92,9 @@ export default function EditBMCPage({ params }: { params: { id: string } }) {
             onChange={handleTemplateChange}
             className="bg-gray-800 text-white p-2 rounded-md focus:ring-2 focus:ring-lime-500"
           >
-            <option value="">Select a template</option>
+            <option value="" className="text-white">Select a template</option>
             {templates.map((template) => (
-              <option key={template.id} value={template.id}>
+              <option key={template.id} value={template.id} className="text-white">
                 {template.asset_class}
               </option>
             ))}
