@@ -41,7 +41,7 @@ export default function EditBMCPage({ params }: { params: { id: string } }) {
     const selectedTemplate = templates.find((t) => t.id === templateId);
 
     if (selectedTemplate) {
-      const { id, asset_class, created_at, updated_at, ...templateData } = selectedTemplate;
+      const { id, created_at, updated_at, project_id, ...templateData } = selectedTemplate;
       setBmc((prev) => ({ ...prev, ...templateData }));
     }
   };

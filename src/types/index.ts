@@ -60,7 +60,7 @@ export interface MCDAEvaluationWithDetails extends MCDAEvaluation {
 
 export interface BusinessModelCanvas {
   id?: string;
-  project_id: string;
+  project_id: string | null;
   asset_class?: string;
   value_proposition?: string;
   customer_segments?: string;
