@@ -3,13 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { DatabaseService } from '@/lib/supabase';
-import { BusinessModelCanvas, BMCTemplate } from '@/types';
+import { BusinessModelCanvas } from '@/types';
 
 export default function EditBMCPage({ params }: { params: { id: string } }) {
   const { id: projectId } = params;
   const router = useRouter();
   const [bmc, setBmc] = useState<Partial<BusinessModelCanvas>>({ project_id: projectId });
-  const [templates, setTemplates] = useState<BMCTemplate[]>([]);
+  const [templates, setTemplates] = useState<BusinessModelCanvas[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

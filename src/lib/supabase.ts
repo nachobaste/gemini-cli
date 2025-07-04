@@ -205,11 +205,12 @@ export class DatabaseService {
 
   static async getBMCTemplates() {
     const { data, error } = await supabase
-      .from('bmc_templates')
+      .from('business_model_canvas')
       .select('*')
+      .is('project_id', null)
 
     if (error) throw error
-    return data as BMCTemplate[]
+    return data as BusinessModelCanvas[]
   }
 
   // Municipalities

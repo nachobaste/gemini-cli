@@ -58,22 +58,6 @@ export interface MCDAEvaluationWithDetails extends MCDAEvaluation {
   weight: number;
 }
 
-export interface BMCTemplate {
-  id: string;
-  asset_class: string;
-  value_proposition?: string;
-  customer_segments?: string;
-  channels?: string;
-  customer_relationships?: string;
-  revenue_streams?: string;
-  key_resources?: string;
-  key_activities?: string;
-  key_partners?: string;
-  cost_structure?: string;
-  created_at: string;
-  updated_at: string;
-}
-
 export interface BusinessModelCanvas {
   id?: string;
   project_id: string;
