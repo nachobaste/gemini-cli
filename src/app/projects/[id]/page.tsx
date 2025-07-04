@@ -92,6 +92,11 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
     if (printWindow) {
       // Render the PrintSummary component to a string
       const printContent = generatePrintSummaryHtml({ project, mcdaScore, evaluations, bmc });
+      printWindow.document.write(printContent);
+      printWindow.document.close();
+      printWindow.print();
+    }
+  };
 
   useEffect(() => {
     const fetchProjectData = async () => {
