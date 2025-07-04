@@ -38,9 +38,9 @@
     ]
   },
   "app/projects/[id]/page.tsx -> react-leaflet": {
-    "id": 134,
+    "id": 2849,
     "files": [
-      "static/chunks/134.9a88b6d28281be71.js"
+      "static/chunks/849.2d6669798eecaa9b.js"
     ]
   }
 }
