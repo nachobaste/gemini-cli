@@ -209,7 +209,7 @@ export class DatabaseService {
       .select('*')
 
     if (error) throw error
-    return data as BusinessModelCanvas[]
+    return data as BMCTemplate[]
   }
 
   // Municipalities
