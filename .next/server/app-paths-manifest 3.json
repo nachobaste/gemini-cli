@@ -1,0 +1,11 @@
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/page": "app/page.js",
+  "/map/page": "app/map/page.js",
+  "/projects/[id]/mcda/edit/page": "app/projects/[id]/mcda/edit/page.js",
+  "/projects/[id]/page": "app/projects/[id]/page.js",
+  "/projects/[id]/edit/page": "app/projects/[id]/edit/page.js",
+  "/projects/[id]/bmc/edit/page": "app/projects/[id]/bmc/edit/page.js",
+  "/projects/page": "app/projects/page.js",
+  "/config/page": "app/config/page.js"
+}
