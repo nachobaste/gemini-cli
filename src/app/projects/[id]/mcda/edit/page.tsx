@@ -1,6 +1,5 @@
 'use client';
 
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -17,7 +16,6 @@ interface MCDAFormData {
 export default function EditMCDAPage({ params }: { params: { id: string } }) {
   const { id: projectId } = params;
   const router = useRouter();
-  const supabase = createClientComponentClient();
   const [parameters, setParameters] = useState<MCDAParameter[]>([]);
   const [formData, setFormData] = useState<MCDAFormData>({});
   const [loading, setLoading] = useState(true);
@@ -27,10 +25,10 @@ export default function EditMCDAPage({ params }: { params: { id: string } }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const fetchedParameters = await DatabaseService.getMCDAParameters(supabase);
+        const fetchedParameters = await DatabaseService.getMCDAParameters();
         setParameters(fetchedParameters);
 
-        const fetchedEvaluations = await DatabaseService.getProjectEvaluations(projectId, supabase);
+        const fetchedEvaluations = await DatabaseService.getProjectEvaluations(projectId);
         
         const initialFormData: MCDAFormData = {};
         fetchedParameters.forEach(param => {
@@ -49,7 +47,7 @@ export default function EditMCDAPage({ params }: { params: { id: string } }) {
       }
     };
     fetchData();
-  }, [projectId, supabase]);
+  }, [projectId]);
 
   const handleChange = (parameterId: string, field: 'value' | 'notes', val: string | number) => {
     setFormData(prev => ({
@@ -77,7 +75,7 @@ export default function EditMCDAPage({ params }: { params: { id: string } }) {
         }));
 
       for (const evaluation of evaluationsToUpsert) {
-        await DatabaseService.upsertMCDAEvaluation(evaluation, supabase);
+        await DatabaseService.upsertMCDAEvaluation(evaluation);
       }
 
       router.push(`/projects/${projectId}`); // Redirect back to project detail page

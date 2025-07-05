@@ -1,10 +1,7 @@
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { createClient } from '@/utils/supabase/client';
 import { Project, MCDAParameter, MCDAEvaluation, BusinessModelCanvas, Municipality, UserProfile } from '@/types';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+const supabase = createClient();
 
 // Helper function to parse Supabase POINT type to { x: lon, y: lat }
 const parsePoint = (point: any): { x: number; y: number } | undefined => {
@@ -32,8 +29,8 @@ const parsePoint = (point: any): { x: number; y: number } | undefined => {
 // Database service functions
 export class DatabaseService {
   // Projects
-  static async getProjects(assetClass?: string, developmentCategory?: string, supabaseClient: SupabaseClient = supabase) {
-    let query = supabaseClient
+  static async getProjects(assetClass?: string, developmentCategory?: string) {
+    let query = supabase
       .from('projects')
       .select('*, mcda_evaluations(*, mcda_parameters(*))')
       .order('created_at', { ascending: false });
@@ -51,7 +48,7 @@ export class DatabaseService {
     if (error) throw error;
 
     const projectsWithScores = await Promise.all(data.map(async (p) => {
-      const score = await DatabaseService.calculateMCDAScore(p.id, supabaseClient);
+      const score = await DatabaseService.calculateMCDAScore(p.id);
       console.log(`Project ${p.id} MCDA Score:`, score); // Add this line for debugging
       return {
         ...p,
@@ -63,8 +60,8 @@ export class DatabaseService {
     return projectsWithScores as Project[];
   }
 
-  static async getProject(id: string, supabaseClient: SupabaseClient = supabase) {
-    const { data, error } = await supabaseClient
+  static async getProject(id: string) {
+    const { data, error } = await supabase
       .from('projects')
       .select('*, mcda_evaluations(*, mcda_parameters(*)), business_model_canvas(*)')
       .eq('id', id)
@@ -78,13 +75,12 @@ export class DatabaseService {
   }
 
   static async createProject(
-    project: Omit<Project, 'id' | 'created_at' | 'updated_at'>,
-    supabaseClient: SupabaseClient = supabase
+    project: Omit<Project, 'id' | 'created_at' | 'updated_at'>
   ) {
-    const { data: { user } } = await supabaseClient.auth.getUser();
+    const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error('User not authenticated');
 
-    const { data, error } = await supabaseClient
+    const { data, error } = await supabase
       .from('projects')
       .insert({ ...project, created_by: user.id })
       .select()
@@ -96,10 +92,9 @@ export class DatabaseService {
 
   static async updateProject(
     id: string,
-    updates: Partial<Project>,
-    supabaseClient: SupabaseClient = supabase
+    updates: Partial<Project>
   ) {
-    const { data, error } = await supabaseClient
+    const { data, error } = await supabase
       .from('projects')
       .update(updates)
       .eq('id', id)
@@ -110,8 +105,8 @@ export class DatabaseService {
     return data as Project;
   }
 
-  static async deleteProject(id: string, supabaseClient: SupabaseClient = supabase) {
-    const { error } = await supabaseClient
+  static async deleteProject(id: string) {
+    const { error } = await supabase
       .from('projects')
       .delete()
       .eq('id', id);
@@ -120,8 +115,8 @@ export class DatabaseService {
   }
 
   // MCDA Parameters
-  static async getMCDAParameters(supabaseClient: SupabaseClient = supabase) {
-    const { data, error } = await supabaseClient
+  static async getMCDAParameters() {
+    const { data, error } = await supabase
       .from('mcda_parameters')
       .select('*')
       .eq('is_active', true)
@@ -132,21 +127,21 @@ export class DatabaseService {
     return data as MCDAParameter[];
   }
 
-  static async getMCDAParametersByCategory(supabaseClient: SupabaseClient = supabase) {
-    const { data, error } = await supabaseClient
+  static async getMCDAParametersByCategory() {
+    const { data, error } = await supabase
       .rpc('get_mcda_parameters_by_category');
     
     if (error) throw error;
     return data;
   }
 
-  static async updateMCDAParameters(parameters: MCDAParameter[], supabaseClient: SupabaseClient = supabase) {
+  static async updateMCDAParameters(parameters: MCDAParameter[]) {
     const updates = parameters.map(param => ({
       id: param.id,
       weight: param.weight,
     }));
 
-    const { data, error } = await supabaseClient
+    const { data, error } = await supabase
       .from('mcda_parameters')
       .upsert(updates, { onConflict: 'id' })
       .select();
@@ -156,8 +151,8 @@ export class DatabaseService {
   }
 
   // MCDA Evaluations
-  static async getProjectEvaluations(projectId: string, supabaseClient: SupabaseClient = supabase) {
-    const { data, error } = await supabaseClient
+  static async getProjectEvaluations(projectId: string) {
+    const { data, error } = await supabase
       .rpc('get_project_evaluations', { project_uuid: projectId });
     
     if (error) throw error;
@@ -170,10 +165,9 @@ export class DatabaseService {
       parameter_id: string;
       value: number;
       notes?: string;
-    },
-    supabaseClient: SupabaseClient = supabase
+    }
   ) {
-    const { data, error } = await supabaseClient.rpc('upsert_mcda_evaluation', {
+    const { data, error } = await supabase.rpc('upsert_mcda_evaluation', {
       p_project_id: evaluation.project_id,
       p_parameter_id: evaluation.parameter_id,
       p_value: evaluation.value,
@@ -184,8 +178,8 @@ export class DatabaseService {
     return data;
   }
 
-  static async calculateMCDAScore(projectId: string, supabaseClient: SupabaseClient = supabase) {
-    const { data, error } = await supabaseClient
+  static async calculateMCDAScore(projectId: string) {
+    const { data, error } = await supabase
       .rpc('calculate_mcda_score', { project_uuid: projectId });
     
     if (error) throw error;
@@ -193,8 +187,8 @@ export class DatabaseService {
   }
 
   // Business Model Canvas
-  static async getBMC(projectId: string, supabaseClient: SupabaseClient = supabase) {
-    const { data, error } = await supabaseClient
+  static async getBMC(projectId: string) {
+    const { data, error } = await supabase
       .from('business_model_canvas')
       .select('*')
       .eq('project_id', projectId)
@@ -205,10 +199,9 @@ export class DatabaseService {
   }
 
   static async upsertBMC(
-    bmc: Omit<BusinessModelCanvas, 'id' | 'created_at' | 'updated_at'>,
-    supabaseClient: SupabaseClient = supabase
+    bmc: Omit<BusinessModelCanvas, 'id' | 'created_at' | 'updated_at'>
   ) {
-    const { data, error } = await supabaseClient
+    const { data, error } = await supabase
       .from('business_model_canvas')
       .upsert(bmc)
       .select()
@@ -218,8 +211,8 @@ export class DatabaseService {
     return data as BusinessModelCanvas;
   }
 
-  static async getBMCTemplates(supabaseClient: SupabaseClient = supabase) {
-    const { data, error } = await supabaseClient
+  static async getBMCTemplates() {
+    const { data, error } = await supabase
       .from('business_model_canvas')
       .select('*')
       .is('project_id', null);
@@ -229,8 +222,8 @@ export class DatabaseService {
   }
 
   // Municipalities
-  static async getMunicipalities(supabaseClient: SupabaseClient = supabase) {
-    const { data, error } = await supabaseClient
+  static async getMunicipalities() {
+    const { data, error } = await supabase
       .from('municipalities')
       .select('*')
       .order('name', { ascending: true });
@@ -240,8 +233,8 @@ export class DatabaseService {
   }
 
   // Search
-  static async searchProjects(searchTerm?: string, status?: string, assetClass?: string, supabaseClient: SupabaseClient = supabase) {
-    const { data, error } = await supabaseClient
+  static async searchProjects(searchTerm?: string, status?: string, assetClass?: string) {
+    const { data, error } = await supabase
       .rpc('search_projects', {
         search_term: searchTerm,
         status_filter: status,
@@ -253,8 +246,8 @@ export class DatabaseService {
   }
 
   // User Profile
-  static async getUserProfile(userId: string, supabaseClient: SupabaseClient = supabase) {
-    const { data, error } = await supabaseClient
+  static async getUserProfile(userId: string) {
+    const { data, error } = await supabase
       .from('user_profiles')
       .select('*')
       .eq('id', userId)
@@ -264,8 +257,8 @@ export class DatabaseService {
     return data as UserProfile | null;
   }
 
-  static async updateUserProfile(userId: string, updates: Partial<UserProfile>, supabaseClient: SupabaseClient = supabase) {
-    const { data, error } = await supabaseClient
+  static async updateUserProfile(userId: string, updates: Partial<UserProfile>) {
+    const { data, error } = await supabase
       .from('user_profiles')
       .upsert({ id: userId, ...updates })
       .select()
