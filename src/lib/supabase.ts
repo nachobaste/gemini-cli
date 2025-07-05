@@ -192,15 +192,18 @@ export class DatabaseService {
     return data as BusinessModelCanvas | null
   }
 
-  static async upsertBMC(bmc: Omit<BusinessModelCanvas, 'id' | 'created_at' | 'updated_at'>) {
-    const { data, error } = await supabase
+  static async upsertBMC(
+    bmc: Omit<BusinessModelCanvas, 'id' | 'created_at' | 'updated_at'>,
+    supabaseClient: typeof supabase = supabase
+  ) {
+    const { data, error } = await supabaseClient
       .from('business_model_canvas')
       .upsert(bmc)
       .select()
-      .single()
-    
-    if (error) throw error
-    return data as BusinessModelCanvas
+      .single();
+
+    if (error) throw error;
+    return data as BusinessModelCanvas;
   }
 
   static async getBMCTemplates() {

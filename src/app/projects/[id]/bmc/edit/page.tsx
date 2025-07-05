@@ -1,5 +1,6 @@
 'use client';
 
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { DatabaseService } from '@/lib/supabase';
@@ -8,6 +9,7 @@ import { BusinessModelCanvas } from '@/types';
 export default function EditBMCPage({ params }: { params: { id: string } }) {
   const { id: projectId } = params;
   const router = useRouter();
+  const supabase = createClientComponentClient();
   const [bmc, setBmc] = useState<Partial<BusinessModelCanvas>>({ project_id: projectId });
   const [templates, setTemplates] = useState<BusinessModelCanvas[]>([]);
   const [loading, setLoading] = useState(true);
@@ -57,10 +59,13 @@ export default function EditBMCPage({ params }: { params: { id: string } }) {
     setError(null);
 
     try {
-      await DatabaseService.upsertBMC({
-        ...bmc,
-        project_id: projectId,
-      });
+      await DatabaseService.upsertBMC(
+        {
+          ...bmc,
+          project_id: projectId,
+        },
+        supabase
+      );
       router.push(`/projects/${projectId}`);
     } catch (err) {
       console.error('Error saving BMC:', err);
