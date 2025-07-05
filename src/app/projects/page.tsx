@@ -1,5 +1,6 @@
 'use client';
 
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { DatabaseService } from '../../lib/supabase';
@@ -7,6 +8,7 @@ import { Project } from '@/types';
 import KanbanView from './KanbanView'; // Import the KanbanView component
 
 const ProjectsPage = () => {
+  const supabase = createClientComponentClient();
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<'list' | 'kanban'>('list'); // New state for view mode
@@ -14,14 +16,14 @@ const ProjectsPage = () => {
 
   const fetchProjects = useCallback(async () => {
     try {
-      const data = await DatabaseService.getProjects();
+      const data = await DatabaseService.getProjects(undefined, undefined, supabase);
       setProjects(data as Project[]);
     } catch (error) {
       console.error('Error fetching projects:', error);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [supabase]);
 
   useEffect(() => {
     fetchProjects();

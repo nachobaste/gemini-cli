@@ -19,8 +19,8 @@ export default function EditBMCPage({ params }: { params: { id: string } }) {
     const fetchData = async () => {
       try {
         const [existingBmc, bmcTemplates] = await Promise.all([
-          DatabaseService.getBMC(projectId),
-          DatabaseService.getBMCTemplates(),
+          DatabaseService.getBMC(projectId, supabase),
+          DatabaseService.getBMCTemplates(supabase),
         ]);
 
         if (existingBmc) {
@@ -36,7 +36,7 @@ export default function EditBMCPage({ params }: { params: { id: string } }) {
     };
 
     fetchData();
-  }, [projectId]);
+  }, [projectId, supabase]);
 
   const handleTemplateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const templateId = e.target.value;

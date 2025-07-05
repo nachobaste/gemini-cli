@@ -1,5 +1,6 @@
 'use client';
 
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { DatabaseService } from '@/lib/supabase';
@@ -41,6 +42,7 @@ if (typeof window !== 'undefined') {
 
 export default function ProjectDetailPage({ params }: { params: { id: string } }) {
   const { id } = params;
+  const supabase = createClientComponentClient();
   const [project, setProject] = useState<Project | null>(null);
   const [mcdaScore, setMcdaScore] = useState<number | null>(null);
   const [evaluations, setEvaluations] = useState<MCDAEvaluationWithDetails[]>([]);
@@ -101,17 +103,17 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
   useEffect(() => {
     const fetchProjectData = async () => {
       try {
-        const fetchedProject = await DatabaseService.getProject(id);
+        const fetchedProject = await DatabaseService.getProject(id, supabase);
         setProject(fetchedProject);
         // console.log('Raw project coordinates on detail page:', fetchedProject.coordinates); // Debugging line
 
-        const score = await DatabaseService.calculateMCDAScore(id);
+        const score = await DatabaseService.calculateMCDAScore(id, supabase);
         setMcdaScore(score);
 
-        const fetchedEvaluations = await DatabaseService.getProjectEvaluations(id);
+        const fetchedEvaluations = await DatabaseService.getProjectEvaluations(id, supabase);
         setEvaluations(fetchedEvaluations);
 
-        const fetchedBmc = await DatabaseService.getBMC(id);
+        const fetchedBmc = await DatabaseService.getBMC(id, supabase);
         setBmc(fetchedBmc);
 
       } catch (error) {
@@ -122,7 +124,7 @@ export default function ProjectDetailPage({ params }: { params: { id: string } }
     };
 
     fetchProjectData();
-  }, [id]);
+  }, [id, supabase]);
 
   const getStatusColor = (status: string) => {
     switch (status?.toLowerCase()) {

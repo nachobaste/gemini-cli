@@ -1,5 +1,6 @@
 'use client';
 
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import React, { useState, useEffect, useCallback } from 'react';
 import { Project, ProjectStatus, AssetClass } from '@/types';
 import { DatabaseService } from '../../lib/supabase';
@@ -11,6 +12,7 @@ interface KanbanViewProps {
 }
 
 const KanbanView: React.FC<KanbanViewProps> = ({ projects: initialProjects, groupBy, onProjectUpdated }) => {
+  const supabase = createClientComponentClient();
   const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [isQuickAddModalOpen, setIsQuickAddModalOpen] = useState(false);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
@@ -51,7 +53,7 @@ const KanbanView: React.FC<KanbanViewProps> = ({ projects: initialProjects, grou
     // Update in database
     try {
       console.log(`Attempting to update project ${projectId} to status ${newStatus}`);
-      await DatabaseService.updateProject(projectId, { status: newStatus });
+      await DatabaseService.updateProject(projectId, { status: newStatus }, supabase);
       onProjectUpdated(); // Notify parent to re-fetch projects
     } catch (error: any) {
       console.error('Error updating project status:', error);
@@ -89,7 +91,7 @@ const KanbanView: React.FC<KanbanViewProps> = ({ projects: initialProjects, grou
     };
 
     try {
-      const createdProject = await DatabaseService.createProject(newProject);
+      const createdProject = await DatabaseService.createProject(newProject, supabase);
       setProjects(prev => [...prev, createdProject]);
       onProjectUpdated(); // Notify parent to re-fetch projects
       setIsQuickAddModalOpen(false);
@@ -138,7 +140,7 @@ const KanbanView: React.FC<KanbanViewProps> = ({ projects: initialProjects, grou
       setProjects(prev => prev.map(p => p.id === updatedProject.id ? updatedProject : p));
 
       try {
-        await DatabaseService.updateProject(selectedProject.id, { created_by: newAssignee });
+        await DatabaseService.updateProject(selectedProject.id, { created_by: newAssignee }, supabase);
         onProjectUpdated();
       } catch (error) {
         console.error('Error assigning team member:', error);
