@@ -1,4 +1,4 @@
-''''use client';
+'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { DatabaseService } from '../../lib/supabase';
@@ -155,4 +155,3 @@ const ConfigPage = () => {
 };
 
 export default ConfigPage;
-'''
