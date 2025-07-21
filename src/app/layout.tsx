@@ -426,30 +426,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </footer>
 
-        <style jsx>{`
-          .mobile-nav-link {
-            display: flex;
-            align-items: center;
-            space-x: 0.75rem;
-            padding: 0.75rem 1rem;
-            color: var(--gray-600);
-            border-radius: 0.5rem;
-            transition: all 0.2s ease;
-            font-weight: 500;
-          }
-
-          .mobile-nav-link:hover {
-            background-color: rgba(197, 255, 0, 0.1);
-            color: var(--accent-color-dark);
-          }
-
-          .mobile-nav-link.active {
-            background-color: rgba(197, 255, 0, 0.15);
-            color: var(--accent-color-dark);
-            font-weight: 600;
-          }
-        `}</style>
-      </body>
+        </body>
     </html>
   );
 }
