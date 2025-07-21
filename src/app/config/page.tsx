@@ -1,14 +1,26 @@
-'use client';
+''''use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { DatabaseService } from '../../lib/supabase';
 import { MCDAParameter } from '@/types';
+import { FiSliders, FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
 
 const ConfigPage = () => {
   const [parameters, setParameters] = useState<MCDAParameter[]>([]);
   const [loading, setLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
-  const [saveError, setSaveError] = useState<string | null>(null);
+  const [saveStatus, setSaveStatus] = useState<'success' | 'error' | null>(null);
+
+  const parametersByCategory = useMemo(() => {
+    return parameters.reduce((acc, param) => {
+      const category = param.category || 'Uncategorized';
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(param);
+      return acc;
+    }, {} as Record<string, MCDAParameter[]>);
+  }, [parameters]);
 
   const handleWeightChange = (id: string, newWeight: number) => {
     setParameters(prevParams =>
@@ -20,15 +32,14 @@ const ConfigPage = () => {
 
   const saveParameters = async () => {
     setIsSaving(true);
-    setSaveError(null);
+    setSaveStatus(null);
     try {
-      // Assuming an update method exists in DatabaseService
-      // This will need to be implemented in supabase.ts
       await DatabaseService.updateMCDAParameters(parameters);
-      alert('Parámetros guardados exitosamente!');
+      setSaveStatus('success');
+      setTimeout(() => setSaveStatus(null), 3000);
     } catch (error) {
       console.error('Error saving parameters:', error);
-      setSaveError('Error al guardar los parámetros. Por favor, inténtalo de nuevo.');
+      setSaveStatus('error');
     } finally {
       setIsSaving(false);
     }
@@ -36,6 +47,7 @@ const ConfigPage = () => {
 
   useEffect(() => {
     const fetchParameters = async () => {
+      setLoading(true);
       try {
         const data = await DatabaseService.getMCDAParameters();
         setParameters(data);
@@ -50,47 +62,97 @@ const ConfigPage = () => {
   }, []);
 
   return (
-    <div className="container-urbop py-12">
-      <h1 className="section-title mb-8">Configuración de Parámetros MCDA</h1>
-
-      {loading ? (
-        <p>Cargando parámetros...</p>
-      ) : (
-        <div className="bg-white p-8 rounded-xl shadow-lg">
-          <div className="space-y-8">
-            {parameters.map((param) => (
-              <div key={param.id} className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-                <div>
-                  <label className="font-semibold">{param.name}</label>
-                  <p className="text-sm text-gray-500">{param.category}</p>
-                </div>
-                <div className="md:col-span-2">
-                  <input
-                    type="range"
-                    min={param.min_value}
-                    max={param.max_value}
-                    value={param.weight}
-                    onChange={(e) => handleWeightChange(param.id, parseFloat(e.target.value))}
-                    className="w-full slider"
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-8 text-right">
-            {saveError && <p className="text-red-500 mb-2">{saveError}</p>}
-            <button
-              className="btn btn-primary"
-              onClick={saveParameters}
-              disabled={isSaving}
-            >
-              {isSaving ? 'Guardando...' : 'Guardar Cambios'}
-            </button>
+    <div className="animate-fade-in">
+      {/* Hero Section */}
+      <section className="bg-black py-12">
+        <div className="container-urbop">
+          <div className="flex items-center space-x-4">
+            <FiSliders className="h-10 w-10 text-lime" />
+            <div>
+              <h1 className="text-3xl font-bold">Configuración de Parámetros</h1>
+              <p className="text-gray-400 mt-1">Ajusta los pesos de los parámetros para el Análisis de Decisión Multicriterio (MCDA).</p>
+            </div>
           </div>
         </div>
-      )}
+      </section>
+
+      {/* Parameters Section */}
+      <section className="bg-gray-900 py-12">
+        <div className="container-urbop">
+          {loading ? (
+            <div className="flex items-center justify-center py-12">
+              <svg className="animate-spin h-12 w-12 text-lime" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </div>
+          ) : (
+            <div className="space-y-10">
+              {Object.entries(parametersByCategory).map(([category, params]) => (
+                <div key={category} className="bg-black p-6 rounded-lg shadow-lg">
+                  <h2 className="text-2xl font-bold mb-6 border-b border-gray-800 pb-3">{category}</h2>
+                  <div className="space-y-6">
+                    {params.map((param) => (
+                      <div key={param.id} className="grid grid-cols-1 md:grid-cols-6 gap-6 items-center">
+                        <div className="md:col-span-2">
+                          <label className="font-semibold text-white">{param.name}</label>
+                          {param.description && <p className="text-sm text-gray-400 mt-1">{param.description}</p>}
+                        </div>
+                        <div className="md:col-span-3 flex items-center space-x-4">
+                          <input
+                            type="range"
+                            min={param.min_value}
+                            max={param.max_value}
+                            step="0.01"
+                            value={param.weight}
+                            onChange={(e) => handleWeightChange(param.id, parseFloat(e.target.value))}
+                            className="w-full slider"
+                          />
+                        </div>
+                        <div className="md:col-span-1">
+                           <input
+                            type="number"
+                            min={param.min_value}
+                            max={param.max_value}
+                            step="0.01"
+                            value={param.weight}
+                            onChange={(e) => handleWeightChange(param.id, parseFloat(e.target.value))}
+                            className="w-full bg-gray-800 text-white border border-gray-700 rounded-md px-3 py-2 text-center focus:outline-none focus:ring-2 focus:ring-lime"
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              <div className="flex justify-end items-center mt-8">
+                {saveStatus === 'success' && (
+                  <div className="flex items-center text-green-400 mr-4 transition-opacity duration-300">
+                    <FiCheckCircle className="mr-2" />
+                    <span>Cambios guardados exitosamente.</span>
+                  </div>
+                )}
+                {saveStatus === 'error' && (
+                  <div className="flex items-center text-red-400 mr-4 transition-opacity duration-300">
+                    <FiAlertCircle className="mr-2" />
+                    <span>Error al guardar. Inténtalo de nuevo.</span>
+                  </div>
+                )}
+                <button
+                  className="btn btn-primary"
+                  onClick={saveParameters}
+                  disabled={isSaving}
+                >
+                  {isSaving ? 'Guardando...' : 'Guardar Cambios'}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
     </div>
   );
 };
 
 export default ConfigPage;
+'''
