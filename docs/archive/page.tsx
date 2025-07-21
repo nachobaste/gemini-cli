@@ -3,9 +3,51 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
+// Define interfaces for strong typing
+interface McDACategory {
+  name: string;
+  score: number;
+}
+
+interface Project {
+  id: number;
+  name: string;
+  location: string;
+  type: string;
+  status: string;
+  score: number;
+  description: string;
+  coordinates: { lat: number; lng: number };
+  details: {
+    area: number;
+    units: number;
+    floors: number;
+    parking: number;
+    startDate: string;
+    endDate: string;
+    budget: number;
+    roi: number;
+  };
+  mcdaScore: {
+    total: number;
+    categories: McDACategory[];
+  };
+  bmc: {
+    valueProposition: string;
+    customerSegments: string;
+    channels: string;
+    customerRelationships: string;
+    revenueStreams: string;
+    keyResources: string;
+    keyActivities: string;
+    keyPartners: string;
+    costStructure: string;
+  };
+}
+
 export default function ProjectDetailPage({ params }: { params: { id: string } }) {
   const { id } = params;
-  const [project, setProject] = useState<any>(null);
+  const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
   
